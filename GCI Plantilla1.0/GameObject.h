@@ -13,6 +13,7 @@ private:
 	Model* model;
 	HWND hwnd;
 	const char* ObjectPath;
+	string nombre;
 	string TexturePath1;
 	string TexturePath2;
 	string TexturePath3;
@@ -22,8 +23,8 @@ private:
 	Shader* ShaderOfModel;
 public:
 	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef);
-	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath, string normalMappingPath);
-	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath);
+	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath, string normalMappingPath);
+	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath);
 	~GameObject();
 	bool Initialize();
 	bool SetShaderModel(Shader* ModelShader);
@@ -34,6 +35,8 @@ public:
 	float* MultiplyVectorMatrix(float*,float*);
 	float scale;
 	void Shutdown();
+	void Transform(float scale[3], float rotation[3], float position[3]);
+	string getNombre();
 };
 
 #endif

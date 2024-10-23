@@ -84,6 +84,9 @@ private:
 	GameObject* Object3d;
 	GameObject* Object3d1;
 	GameObject* Object3d2;
+	GameObject* Cabana;
+	GameObject* Hongo;
+	GameObject* Arco;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
@@ -112,6 +115,7 @@ public:
 	bool Update(InputClass* input, float deltaTime);
 	bool ManageCommands();
 	bool Shutdown();
+	bool setModel(GameObject*& model, ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath);
 
 protected:
 

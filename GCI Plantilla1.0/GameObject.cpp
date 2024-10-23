@@ -9,22 +9,24 @@ GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextu
 	ShaderOfModel = 0;
 }
 
-GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath, string normalMappingPath) {
+GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath, string normalMappingPath) {
 	this->OpenGL = OpenGL;
 	this->LoaderTexRef = LoaderTextureRef;
 	this->worldmatrix = 0;
 	this->hwnd = hwnd;
+	this->nombre = nombre;
 	ObjectPath = objPath;
 	TexturePath1 = texturePath;
 	NormalMapPath = normalMappingPath;
 	ShaderOfModel = 0;
 }
 
-GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath) {
+GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath) {
 	this->OpenGL = OpenGL;
 	this->hwnd = hwnd;
 	this->LoaderTexRef = LoaderTextureRef;
 	this->worldmatrix = 0;
+	this->nombre = nombre;
 	ObjectPath = objPath;
 	TexturePath1 = texturePath;
 	ShaderOfModel = 0;
@@ -35,6 +37,11 @@ GameObject::~GameObject() {
 
 float * GameObject::GetWorldMatrix() {
 	return this->worldmatrix;
+}
+
+string GameObject:: getNombre()
+{
+	return this->nombre;
 }
 
 bool GameObject::SetShaderModel(Shader* ModelShader) {
@@ -107,4 +114,53 @@ void GameObject::Shutdown() {
 	}
 	if (model)
 		model = NULL;
+}
+
+void GameObject::Transform(float scale[3], float rotation[3], float position[3])
+{
+	//Matrices auxiliares
+	float* WorldMatrix = this->GetWorldMatrix();
+	float* auxTranslationMatrix = new float[16];
+	float* auxScaleMatrix = new float[16];
+	float* auxRotationMatrix = new float[16];
+	float* auxRotationXYZ[3]{};
+
+	for (int i = 0; i < 3; i++) // cada elemento del array es otro array asi que lo inicializo de esta manera
+	{
+		auxRotationXYZ[i] = new float[16]; // cada elemento es una matriz de 16 elementos
+	}
+
+	//Aplico escala y traslacion a cada matriz
+	OpenGL->MatrixScale(auxScaleMatrix, scale[0], scale[1], scale[2]);
+	OpenGL->MatrixTranslation(auxTranslationMatrix, position[0], position[1], position[2]);
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (rotation[i] == 0) // si el angulo de rotacion en ese eje es 0 se hace matriz identidad para no tener problemas
+		{
+			OpenGL->BuildIdentityMatrix(auxRotationXYZ[i]);
+		}
+		else // si hay un angulo en ese eje entonces
+		{
+			if (i == 0) // angulo en x
+			{
+				OpenGL->MatrixRotationX(auxRotationXYZ[0], rotation[0]);
+			}
+			else if (i == 1) // angulo en y
+			{
+				OpenGL->MatrixRotationY(auxRotationXYZ[1], rotation[1]);
+			}
+			else if (i == 2) // angulo en z
+			{
+				OpenGL->MatrixRotationZ(auxRotationXYZ[2], rotation[2]);
+			}
+		}
+	}
+	// se multiplican las matrices y el rotation final se guarda en auxRotationMatrix
+	OpenGL->MatrixMultiply(auxRotationMatrix, auxRotationXYZ[2], auxRotationXYZ[1]);
+	OpenGL->MatrixMultiply(auxRotationMatrix, auxRotationMatrix, auxRotationXYZ[0]);
+
+	// Se aplican todas las transformaciones en el worldMatrix
+	OpenGL->MatrixMultiply(WorldMatrix, auxScaleMatrix, auxRotationMatrix);
+	OpenGL->MatrixMultiply(WorldMatrix, WorldMatrix, auxTranslationMatrix);
 }
