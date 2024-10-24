@@ -89,8 +89,27 @@ bool Scene::Initialize() {
 	}
 
 	//Hice esta clase setModel para que ocupe menos espacio, es lo mismo que se tenía antes pero en una función
-	setModel(Cabana, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Cabana",
-		"recursos/Cabana/Cabana.obj", "recursos/Cabana/diffuse_forester's_house.png");
+
+	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Hongo",
+		"recursos/Hongo/hongo.obj", "recursos/Hongo/Mushroom2Albedo.png");
+
+	setModel(Arco, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Arco",
+		"recursos/Arco/arco.obj", "recursos/Arco/arch_BaseColor.png");
+
+	setModel(Puente, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Puente",
+		"recursos/Puente2/Puente2.obj", "recursos/Puente2/TexturaPuente.png");
+
+	setModel(Cabin, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Cabin",
+		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
+
+	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito1",
+		"recursos/hongitos/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
+
+	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito2",
+		"recursos/hongitos/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
+
+	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito3",
+		"recursos/hongitos/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
 
 	return result;
 }
@@ -126,7 +145,13 @@ bool Scene::Render() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Renderizado de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	Cabana->Render(viewMatrix, projectionMatrix);
+	Hongo->Render(viewMatrix, projectionMatrix);
+	Arco->Render(viewMatrix, projectionMatrix);
+	Puente->Render(viewMatrix, projectionMatrix);
+	Cabin->Render(viewMatrix, projectionMatrix);
+	Honguito1->Render(viewMatrix, projectionMatrix);
+	Honguito2->Render(viewMatrix, projectionMatrix);
+	Honguito3->Render(viewMatrix, projectionMatrix);
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
@@ -150,9 +175,21 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	// Transformaciones de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// hice la función transform para aplicar todas las transformaciones de manera mas simple
-	float scale[3] = { 5,5,5 }; float rotation[3] = { 0,0,0 }; float position[3] = { 0.0f, 5, 0.0f };
-	Cabana->Transform(scale, rotation, position);
-	
+	float scale[3] = { 2,2,2 }; float rotation[3] = { 0,0,0 }; float position[3] = { 0.0f, 6, 15.0f };
+	Hongo->Transform(scale, rotation, position);
+	float scale2[3] = { 1.2,1.2,1.2 }; float rotation2[3] = { 0,0,0 }; float position2[3] = { 25.0f, 4, -15.0f };
+	Arco->Transform(scale2, rotation2, position2);
+	float scale3[3] = { 2,2,2.5 }; float rotation3[3] = { 0,0,0 }; float position3[3] = { 0.0f, 3.2, -97.0f };
+	Puente->Transform(scale3, rotation3, position3);
+	float scale4[3] = { 2.5,2.5,2.5 }; float rotation4[3] = { 0,3.1416,0 }; float position4[3] = { -30.0f, 3.2, -130.0f };
+	Cabin->Transform(scale4, rotation4, position4);
+	float scale5[3] = { 1,1,1 }; float rotation5[3] = { 0,0,0 }; float position5[3] = { 20.0f, 3.8, 15.0f };
+	Honguito1->Transform(scale5, rotation5, position5);
+	float scale6[3] = { 1,1,1 }; float rotation6[3] = { 0,0,0 }; float position6[3] = { 21.0f, 3.8, 16.0f };
+	Honguito2->Transform(scale6, rotation6, position6);
+	float scale7[3] = { 1,1,1 }; float rotation7[3] = { 0,0,0 }; float position7[3] = { 22.0f, 3.8, 17.0f };
+	Honguito3->Transform(scale7, rotation7, position7);
+
 	return result;
 }
 

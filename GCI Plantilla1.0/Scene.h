@@ -84,9 +84,13 @@ private:
 	GameObject* Object3d;
 	GameObject* Object3d1;
 	GameObject* Object3d2;
-	GameObject* Cabana;
 	GameObject* Hongo;
 	GameObject* Arco;
+	GameObject* Puente;
+	GameObject* Cabin;
+	GameObject* Honguito1;
+	GameObject* Honguito2;
+	GameObject* Honguito3;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
