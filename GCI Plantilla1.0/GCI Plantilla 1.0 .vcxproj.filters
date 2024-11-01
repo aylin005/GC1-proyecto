@@ -43,6 +43,12 @@
     <ClCompile Include="TextureLoaderForOpenGL.cpp">
       <Filter>Archivos de codigo fuente</Filter>
     </ClCompile>
+    <ClCompile Include="Dome.cpp">
+      <Filter>Archivos de codigo fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>Archivos de codigo fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cameraclass.h">
@@ -117,6 +123,18 @@
     <ClInclude Include="Land.h">
       <Filter>Archivos de Encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Dome.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBillboard.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderSkyDome.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\color.ps">
@@ -147,6 +165,18 @@
       <Filter>Recursos</Filter>
     </None>
     <None Include="shaders\terrain.vs">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\billboard.ps">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\billboard.vs">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\SkydomeShader.ps">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\SkydomeShader.vs">
       <Filter>Recursos</Filter>
     </None>
   </ItemGroup>

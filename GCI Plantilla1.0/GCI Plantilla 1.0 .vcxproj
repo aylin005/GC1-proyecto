@@ -129,7 +129,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="cameraclass.cpp" />
+    <ClCompile Include="Dome.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gamepad.c" />
     <ClCompile Include="GameLogic.cpp" />
@@ -145,8 +147,10 @@
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
+    <ClInclude Include="Dome.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gamepad.h" />
     <ClInclude Include="GameLogic.h" />
@@ -163,7 +167,9 @@
     <ClInclude Include="openglclass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderBillboard.h" />
     <ClInclude Include="ShaderBoundingBox.h" />
+    <ClInclude Include="ShaderSkyDome.h" />
     <ClInclude Include="TextureLoaderForOpenGL.h" />
     <ClInclude Include="TextureShader.h" />
     <ClInclude Include="timerclass.h" />
@@ -171,10 +177,14 @@
     <ClInclude Include="VectorRR.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\billboard.ps" />
+    <None Include="shaders\billboard.vs" />
     <None Include="shaders\color.ps" />
     <None Include="shaders\color.vs" />
     <None Include="shaders\light.ps" />
     <None Include="shaders\light.vs" />
+    <None Include="shaders\SkydomeShader.ps" />
+    <None Include="shaders\SkydomeShader.vs" />
     <None Include="shaders\terrain.ps" />
     <None Include="shaders\terrain.vs" />
     <None Include="shaders\texture.ps" />

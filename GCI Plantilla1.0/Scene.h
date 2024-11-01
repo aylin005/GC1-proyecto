@@ -17,6 +17,10 @@
 #include "Shader.h"
 #include "TextureShader.h"
 #include "TextureLoaderForOpenGL.h"
+#include "Dome.h"
+#include "ShaderSkyDome.h"
+#include "Billboard.h"
+#include "ShaderBillboard.h"
 #include <string>
 
 // GLOBALS //
@@ -64,12 +68,15 @@ private:
 	Land* Terreno;
 	informacionDColision* prevColision;
 	TriangleClass* Triangulo;
+	Dome* Skydome;
 
 	//Shaders
 	LightShaderClass* LightShader;
 	ColorShaderClass* ColorShader;
 	ShaderBoundingBox* ShaderBounding;
 	ShaderTexture* ShaderModel;
+	SkydomeShaderClass* ShaderSkydome;
+	BillboardShaderClass* ShaderBillboard;
 
 	//Lights
 	LightClass* Light;
@@ -91,6 +98,9 @@ private:
 	GameObject* Honguito1;
 	GameObject* Honguito2;
 	GameObject* Honguito3;
+
+	//Billboards
+	Billboard* Tree;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;

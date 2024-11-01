@@ -111,6 +111,22 @@ bool Scene::Initialize() {
 	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito3",
 		"recursos/hongitos/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
 
+	//Skydome
+	ShaderSkydome = new SkydomeShaderClass(OpenGL, handlerWindow, "shaders/SkydomeShader.vs",
+		"shaders/SkydomeShader.ps");
+	Skydome = new Dome("recursos/sky.jpg", OpenGL, LoaderTexture, 300);
+	Skydome->Initialize();
+	Skydome->SetShader(ShaderSkydome);
+	Skydome->SetIterpolationDay(false, true);
+
+	//Billboards
+	ShaderBillboard = new BillboardShaderClass(OpenGL, handlerWindow, "shaders/billboard.vs",
+		"shaders/billboard.ps");
+
+	Tree = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/tree.png");
+	Tree->Initialize(5.0f);
+	Tree->SetShader(ShaderBillboard);
+
 	return result;
 }
 
@@ -136,6 +152,9 @@ bool Scene::Render() {
 	Camera->GetViewMatrix(viewMatrix);
 	OpenGL->GetProjectionMatrix(projectionMatrix);
 
+	Skydome->CicloInterpolaciones();
+	Skydome->Render(viewMatrix, projectionMatrix);
+
 	// Renderizamos terreno
 	Terreno->Render(OpenGL, worldMatrix, viewMatrix, projectionMatrix);
 
@@ -152,6 +171,12 @@ bool Scene::Render() {
 	Honguito1->Render(viewMatrix, projectionMatrix);
 	Honguito2->Render(viewMatrix, projectionMatrix);
 	Honguito3->Render(viewMatrix, projectionMatrix);
+
+	//Billboards
+	Tree->Render(viewMatrix, projectionMatrix,
+		0.0f, Terreno->Superficie(0.0f, 0.0f), 0.0f,
+		DeltaPosition->X, DeltaPosition->Z);
+
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
