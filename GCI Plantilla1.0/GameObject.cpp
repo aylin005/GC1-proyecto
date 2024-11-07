@@ -97,6 +97,20 @@ void GameObject::Render(float* viewMatrix,float* projectionMatrix) {
 	}
 }
 
+void GameObject::Render(float* viewMatrix, float* projectionMatrix, float posX, float posY, float posZ, float sx, float sy, float sz, float rx, float ry, float rz)
+{
+	if (model) {
+
+		setTransform(posX, posY, posZ, sx, sy, sz, rx, ry, rz);
+
+		ShaderOfModel->SetShader();
+		ShaderOfModel->PonMatriz4x4((char*)"worldMatrix", worldmatrix);
+		ShaderOfModel->PonMatriz4x4((char*)"viewMatrix", viewMatrix);
+		ShaderOfModel->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
+		model->Render(ShaderOfModel);
+	}
+}
+
 float * GameObject::MultiplyVectorMatrix(float*matrix, float*vector) {
 	float* vr = new float[4] {0.0f};
 	vr[3] = 1.0f;
@@ -116,8 +130,19 @@ void GameObject::Shutdown() {
 		model = NULL;
 }
 
-void GameObject::Transform(float scale[3], float rotation[3], float position[3])
+void GameObject::setTransform(float x, float y, float z, float sx, float sy, float sz, float rx, float ry, float rz)
 {
+	//Position
+	this->x = x; this->y = y; this->z = z;
+	//Scale
+	this->sx = sx; this->sy = sy; this->sz = sz;
+	//Rotation
+	this->rx = rx; this->ry = ry; this->rz = rz;
+	Transform();
+}
+void GameObject::Transform()
+{
+	float rotation[] = { rx,ry,rz };
 	//Matrices auxiliares
 	float* WorldMatrix = this->GetWorldMatrix();
 	float* auxTranslationMatrix = new float[16];
@@ -131,8 +156,8 @@ void GameObject::Transform(float scale[3], float rotation[3], float position[3])
 	}
 
 	//Aplico escala y traslacion a cada matriz
-	OpenGL->MatrixScale(auxScaleMatrix, scale[0], scale[1], scale[2]);
-	OpenGL->MatrixTranslation(auxTranslationMatrix, position[0], position[1], position[2]);
+	OpenGL->MatrixScale(auxScaleMatrix, sx, sy, sz);
+	OpenGL->MatrixTranslation(auxTranslationMatrix, x, y, z);
 
 	for (int i = 0; i < 3; i++)
 	{

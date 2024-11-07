@@ -10,7 +10,7 @@ Billboard::Billboard(OpenGLClass* OpenGL, HWND handler, TextureClass* LoaderTexR
 Billboard::~Billboard() {
 }
 
-bool Billboard::Initialize(float escala) {
+bool Billboard::Initialize(float escalaZ, float escalaY) {
 	// Se inicializa y guarda el ID de la textura
 	if (TexturePath != "") {
 		TextureID = LoaderTexRef->Initialize(TexturePath, true);
@@ -23,27 +23,28 @@ bool Billboard::Initialize(float escala) {
 	vertices = new Vertex[m_vertexCount];
 	indices = new unsigned int[m_indexCount];
 
+	//EN posZ se multiplica la escalaZ y en posY se multiplica la escalaY
 	vertices[0].posx = 0;
 	vertices[0].posy = 0;
-	vertices[0].posz = -1 * escala;
+	vertices[0].posz = -1 * escalaZ;
 	vertices[0].u = 0;
 	vertices[0].v = 1;
 
 	vertices[1].posx = 0;
-	vertices[1].posy = 2 * escala;
-	vertices[1].posz = -1 * escala;
+	vertices[1].posy = 2 * escalaY;
+	vertices[1].posz = -1 * escalaZ;
 	vertices[1].u = 0;
 	vertices[1].v = 0;
 
 	vertices[2].posx = 0;
-	vertices[2].posy = 2 * escala;
-	vertices[2].posz = 1 * escala;
+	vertices[2].posy = 2 * escalaY;
+	vertices[2].posz = 1 * escalaZ;
 	vertices[2].u = 1;
 	vertices[2].v = 0;
 
 	vertices[3].posx = 0;
 	vertices[3].posy = 0;
-	vertices[3].posz = 1 * escala;
+	vertices[3].posz = 1 * escalaZ;
 	vertices[3].u = 1;
 	vertices[3].v = 1;
 

@@ -41,7 +41,7 @@ public:
 	Billboard(OpenGLClass* OpenGL, HWND handler, TextureClass* LoaderTexRef, string texturePath);
 	~Billboard();
 
-	bool Initialize(float escala);
+	bool Initialize(float escalaZ, float escalaY);
 	bool SetShader(Shader* BillboardShader);
 	
 	float* GetWorldMatrix();

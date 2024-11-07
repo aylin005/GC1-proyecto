@@ -124,7 +124,7 @@ bool Scene::Initialize() {
 		"shaders/billboard.ps");
 
 	Tree = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/tree.png");
-	Tree->Initialize(5.0f);
+	Tree->Initialize(10.0f,5.0f);
 	Tree->SetShader(ShaderBillboard);
 
 	return result;
@@ -164,18 +164,25 @@ bool Scene::Render() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Renderizado de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	Hongo->Render(viewMatrix, projectionMatrix);
-	Arco->Render(viewMatrix, projectionMatrix);
-	Puente->Render(viewMatrix, projectionMatrix);
-	Cabin->Render(viewMatrix, projectionMatrix);
-	Honguito1->Render(viewMatrix, projectionMatrix);
-	Honguito2->Render(viewMatrix, projectionMatrix);
-	Honguito3->Render(viewMatrix, projectionMatrix);
+
+	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
+	Hongo->Render(viewMatrix, projectionMatrix,  6,6,0,  2,2,2);
+	Hongo->Render(viewMatrix, projectionMatrix,  18,5,1,  1,1,1);
+	Arco->Render(viewMatrix, projectionMatrix,   25.0f, 4, -15.0f,      1.2, 1.2, 1.2);
+	Puente->Render(viewMatrix, projectionMatrix, 0.0f, 3.2, -97.0f,     2, 2, 2.5);
+	Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
+	Honguito1->Render(viewMatrix, projectionMatrix, 20.0f, 3.8, 15.0f);
+	Honguito1->Render(viewMatrix, projectionMatrix, 23.0f, 3.8, 15.0f);
+	Honguito2->Render(viewMatrix, projectionMatrix, 21.0f, 3.8, 16.0f);
+	Honguito2->Render(viewMatrix, projectionMatrix, 24.0f, 3.8, 16.0f, 2,2,2);
+	Honguito3->Render(viewMatrix, projectionMatrix, 22.0f, 3.8, 17.0f);
+	Honguito3->Render(viewMatrix, projectionMatrix, 25.0f, 3.8, 17.0f);
 
 	//Billboards
 	Tree->Render(viewMatrix, projectionMatrix,
-		0.0f, Terreno->Superficie(0.0f, 0.0f), 0.0f,
+		-15.0f, Terreno->Superficie(0.0f, 0.0f), 5.0f,
 		DeltaPosition->X, DeltaPosition->Z);
+
 
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
@@ -199,21 +206,6 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Transformaciones de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// hice la función transform para aplicar todas las transformaciones de manera mas simple
-	float scale[3] = { 2,2,2 }; float rotation[3] = { 0,0,0 }; float position[3] = { 0.0f, 6, 15.0f };
-	Hongo->Transform(scale, rotation, position);
-	float scale2[3] = { 1.2,1.2,1.2 }; float rotation2[3] = { 0,0,0 }; float position2[3] = { 25.0f, 4, -15.0f };
-	Arco->Transform(scale2, rotation2, position2);
-	float scale3[3] = { 2,2,2.5 }; float rotation3[3] = { 0,0,0 }; float position3[3] = { 0.0f, 3.2, -97.0f };
-	Puente->Transform(scale3, rotation3, position3);
-	float scale4[3] = { 2.5,2.5,2.5 }; float rotation4[3] = { 0,3.1416,0 }; float position4[3] = { -30.0f, 3.2, -130.0f };
-	Cabin->Transform(scale4, rotation4, position4);
-	float scale5[3] = { 1,1,1 }; float rotation5[3] = { 0,0,0 }; float position5[3] = { 20.0f, 3.8, 15.0f };
-	Honguito1->Transform(scale5, rotation5, position5);
-	float scale6[3] = { 1,1,1 }; float rotation6[3] = { 0,0,0 }; float position6[3] = { 21.0f, 3.8, 16.0f };
-	Honguito2->Transform(scale6, rotation6, position6);
-	float scale7[3] = { 1,1,1 }; float rotation7[3] = { 0,0,0 }; float position7[3] = { 22.0f, 3.8, 17.0f };
-	Honguito3->Transform(scale7, rotation7, position7);
 
 	return result;
 }
