@@ -130,6 +130,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Billboard.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BoundingBoxRenderer.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -148,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Billboard.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="BoundingBoxRenderer.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="Dome.h" />

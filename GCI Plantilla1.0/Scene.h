@@ -21,6 +21,7 @@
 #include "ShaderSkyDome.h"
 #include "Billboard.h"
 #include "ShaderBillboard.h"
+#include "BoundingBoxRenderer.h"
 #include <string>
 
 // GLOBALS //
@@ -56,6 +57,7 @@ private:
 	// Variables de movimiento y rotacion del personaje
 	Vector* DeltaPosition = new Vector();
 	Vector* DeltaRotation = new Vector();
+	Vector* LasDeltaPosition = new Vector();
 
 	//Dependencias Externas
 	HWND handlerWindow = NULL;
@@ -77,6 +79,7 @@ private:
 	ShaderTexture* ShaderModel;
 	SkydomeShaderClass* ShaderSkydome;
 	BillboardShaderClass* ShaderBillboard;
+	ShaderBoundingBox* ShaderBox;
 
 	//Lights
 	LightClass* Light;
@@ -101,6 +104,9 @@ private:
 
 	//Billboards
 	Billboard* Tree;
+
+	//Cajas
+	BoundingBoxRenderer* box;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
@@ -129,7 +135,7 @@ public:
 	bool Update(InputClass* input, float deltaTime);
 	bool ManageCommands();
 	bool Shutdown();
-	bool setModel(GameObject*& model, ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath);
+	bool setModel(GameObject*& model, ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath);
 
 protected:
 

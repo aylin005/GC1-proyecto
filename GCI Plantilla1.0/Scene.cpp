@@ -64,7 +64,7 @@ bool Scene::Initialize() {
 
 	//Terreno = new Land(handlerWindow, OpenGL, LoaderTexture, L"recursos/heightmap.jpg", "recursos/test.tga", "recursos/Piedras_normal.jpg",(float)400, (float)400, 0, 1);
 	Terreno = new Land(handlerWindow, OpenGL, LoaderTexture, 
-		L"recursos/Texturas/Heightmap3.png", "recursos/Texturas/Rocks007.jpg", "recursos/Texturas/Grass003.jpg", "recursos/Texturas/Heightmap3.png",
+		L"recursos/Texturas/Heightmap3.png", "recursos/Texturas/Rocks007.jpg", "recursos/Texturas/Grass003.jpg", "recursos/Texturas/MultiTexture.png",
 		(float)600, (float)600);
 	if (!Terreno){
 		result = false;
@@ -88,27 +88,36 @@ bool Scene::Initialize() {
 		return result;
 	}
 
+	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
+		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
 	//Hice esta clase setModel para que ocupe menos espacio, es lo mismo que se tenía antes pero en una función
 
-	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Hongo",
+	box = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f,10.0f ,10.0f });
+	box->SetShader(ShaderBox);
+
+
+	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
+		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
+	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Hongo/hongo.obj", "recursos/Hongo/Mushroom2Albedo.png");
 
-	setModel(Arco, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Arco",
+	setModel(Arco, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Arco/arco.obj", "recursos/Arco/arch_BaseColor.png");
 
-	setModel(Puente, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Puente",
+	setModel(Puente, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Puente2/Puente2.obj", "recursos/Puente2/TexturaPuente.png");
 
-	setModel(Cabin, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Cabin",
+	setModel(Cabin, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
 
-	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito1",
+	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
 
-	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito2",
+	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
 
-	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture, "Honguito3",
+	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
 
 	//Skydome
@@ -170,7 +179,9 @@ bool Scene::Render() {
 	Hongo->Render(viewMatrix, projectionMatrix,  18,5,1,  1,1,1);
 	Arco->Render(viewMatrix, projectionMatrix,   25.0f, 4, -15.0f,      1.2, 1.2, 1.2);
 	Puente->Render(viewMatrix, projectionMatrix, 0.0f, 3.2, -97.0f,     2, 2, 2.5);
-	Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
+	//Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
+	Cabin->setTransform(-30.0f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	Cabin->Render(viewMatrix, projectionMatrix, true);
 	Honguito1->Render(viewMatrix, projectionMatrix, 20.0f, 3.8, 15.0f);
 	Honguito1->Render(viewMatrix, projectionMatrix, 23.0f, 3.8, 15.0f);
 	Honguito2->Render(viewMatrix, projectionMatrix, 21.0f, 3.8, 16.0f);
@@ -183,7 +194,8 @@ bool Scene::Render() {
 		-15.0f, Terreno->Superficie(0.0f, 0.0f), 5.0f,
 		DeltaPosition->X, DeltaPosition->Z);
 
-
+	//Cajas
+	box->Draw(viewMatrix, projectionMatrix);
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
@@ -203,6 +215,24 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 		return result;
 	}
 
+	float* matrixBox = box->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixBox, -10.0, Terreno->Superficie(-10.0f, 10.0f), 10.0f);
+
+	if (Cabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+	if (box->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Transformaciones de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,6 +242,10 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 bool Scene::ManageCommands() {
 	bool result = true;
+
+	LasDeltaPosition->X = DeltaPosition->X;
+	LasDeltaPosition->Y = DeltaPosition->Y;
+	LasDeltaPosition->Z = DeltaPosition->Z;
 
 	float vr[2]{ 0,0 };
 	float radians = DeltaRotation->Y * 0.0174532925f;
@@ -322,10 +356,10 @@ bool Scene::Shutdown() {
 	return result;
 }
 
-bool Scene::setModel(GameObject*& model,ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, string nombre, const char* objPath, string texturePath)
+bool Scene::setModel(GameObject*& model,ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath)
 {
 	bool result;
-	model = new GameObject(OpenGL, hwnd, LoaderTextureRef, nombre,
+	model = new GameObject(OpenGL, hwnd, LoaderTextureRef,
 		objPath, texturePath);
 	if (!model) {
 		result = false;
@@ -340,6 +374,6 @@ bool Scene::setModel(GameObject*& model,ShaderTexture* ShaderModel, OpenGLClass*
 			_RPT1(0, "Alert! GameObject has an error on initialize. \n", 0);
 			return result;
 		}
-		model->SetShaderModel(ShaderModel);
+		model->SetShaders(ShaderModel, ShaderBox);
 	}
 }

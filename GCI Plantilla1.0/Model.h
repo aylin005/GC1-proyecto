@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include "Shader.h"
+#include "BoundingBox.h"
 
 using std::vector;
 using namespace std;
@@ -79,6 +80,7 @@ private:
 	unsigned int TextureID[5];
 	int MaxTexturesPerModel;
 	TextureClass* LoaderTextureReference;
+	BoundingBox* box;
 protected:
 
 	//Important
@@ -121,6 +123,7 @@ public:
 	bool InitializeBuffers(OpenGLClass*);
 	bool CreateBoundingBox(OpenGLClass*);
 	void ChangeTexture(int From, int To);
+	BoundingBox* GetBox();
 };
 
 #endif // !_MODEL_

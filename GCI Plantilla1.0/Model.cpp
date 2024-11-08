@@ -12,6 +12,8 @@ Model::Model(){
 	TextureID[2] = 0;
 	TextureID[3] = 0;
 	TextureID[4] = 0;
+
+	box = NULL;
 }
 
 Model::Model(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTexRef){
@@ -76,6 +78,7 @@ bool Model::Initialize(const char* objPath, string texturePath) {
 	bool result;
 	min = new GLFLOAT3(0.0f, 0.0f, 0.0f);
 	max = new GLFLOAT3(0.0f, 0.0f, 0.0f);
+
 	//load buffer Model;
 	result = LoadModel(objPath);
 	if (!result) {
@@ -95,6 +98,36 @@ bool Model::Initialize(const char* objPath, string texturePath) {
 		TextureID[MaxTexturesPerModel] = LoaderTextureReference->Initialize(texturePath,true);
 		MaxTexturesPerModel++;
 	}
+
+	// Inicialización de nuestra Bounding Box
+	box = new BoundingBox();
+	if (!box) {
+		return false;
+	}
+
+	BoundingBox::GLFLOAT3 maxBox;
+	BoundingBox::GLFLOAT3 minBox;
+
+	maxBox.x = max->x;
+	maxBox.y = max->y;
+	maxBox.z = max->z;
+
+	minBox.x = min->x;
+	minBox.y = min->y;
+	minBox.z = min->z;
+
+	BoundingBox::GLCOLOR color;
+	color.r = 1.0;
+	color.g = 1.0;
+	color.b = 1.0;
+	color.a = 1.0;
+
+	result = box->Initialize(OpenGLRef, maxBox, minBox, color);
+	if (!result) {
+		return false;
+	}
+
+	return true;
 }
 
 void Model::ChangeTexture(int From, int To) {
@@ -1034,4 +1067,8 @@ void Model::Shutdown(OpenGLClass* OpenGL)
 	OpenGL->glDeleteVertexArrays(1, &m_vertexArrayId);
 
 	return;
+}
+
+BoundingBox* Model::GetBox() {
+	return this->box;
 }

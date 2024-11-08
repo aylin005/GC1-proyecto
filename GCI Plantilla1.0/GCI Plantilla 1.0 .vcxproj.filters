@@ -49,6 +49,12 @@
     <ClCompile Include="Billboard.cpp">
       <Filter>Archivos de codigo fuente</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingBox.cpp">
+      <Filter>Archivos de codigo fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingBoxRenderer.cpp">
+      <Filter>Archivos de codigo fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cameraclass.h">
@@ -135,6 +141,12 @@
     <ClInclude Include="ShaderSkyDome.h">
       <Filter>Archivos de Encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBoxRenderer.h">
+      <Filter>Archivos de Encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\color.ps">
@@ -155,12 +167,6 @@
     <None Include="shaders\texture.vs">
       <Filter>Recursos</Filter>
     </None>
-    <None Include="shaders\vertexcolor.ps">
-      <Filter>Recursos</Filter>
-    </None>
-    <None Include="shaders\vertexcolor.vs">
-      <Filter>Recursos</Filter>
-    </None>
     <None Include="shaders\terrain.ps">
       <Filter>Recursos</Filter>
     </None>
@@ -177,6 +183,12 @@
       <Filter>Recursos</Filter>
     </None>
     <None Include="shaders\SkydomeShader.vs">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\vertexcolor.ps">
+      <Filter>Recursos</Filter>
+    </None>
+    <None Include="shaders\vertexcolor.vs">
       <Filter>Recursos</Filter>
     </None>
   </ItemGroup>
