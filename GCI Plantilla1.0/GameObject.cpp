@@ -1,4 +1,5 @@
 ﻿#include "GameObject.h"
+using std::vector;
 
 
 GameObject::GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef) {
@@ -86,9 +87,12 @@ void GameObject::ChangeTexture(int From, int To) {
 	model->ChangeTexture(From, To);
 }
 
-void GameObject::Render(float* viewMatrix,float* projectionMatrix, bool showBox) {
+void GameObject::RenderWithCB(float* viewMatrix,float* projectionMatrix, bool showBox,float posX, float posY, float posZ, float sx, float sy, float sz, float rx, float ry, float rz)
+{//Para generar automáticamente su CollisionBox
 	
 	if (model) {
+		setTransform(posX, posY, posZ, sx, sy, sz, rx, ry, rz);
+
 		ShaderOfModel->SetShader();
 		ShaderOfModel->PonMatriz4x4((char*)"worldMatrix", worldmatrix);
 		ShaderOfModel->PonMatriz4x4((char*)"viewMatrix", viewMatrix);
@@ -111,6 +115,7 @@ void GameObject::Render(float* viewMatrix,float* projectionMatrix, bool showBox)
 			delete color;
 			color = NULL;
 		}
+
 	}
 }
 

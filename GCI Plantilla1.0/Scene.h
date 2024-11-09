@@ -22,6 +22,7 @@
 #include "Billboard.h"
 #include "ShaderBillboard.h"
 #include "BoundingBoxRenderer.h"
+#include "vector"
 #include <string>
 
 // GLOBALS //
@@ -90,6 +91,9 @@ private:
 	float deltaTime;
 
 	TextureClass* LoaderTexture;
+
+	std::vector<GameObject*> Collisions; //Vector que guarda todos los Modelos que tendran colisiones
+
 	//Objetos
 	GameObject* Object3d;
 	GameObject* Object3d1;

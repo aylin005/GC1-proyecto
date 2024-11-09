@@ -37,7 +37,7 @@ public:
 	bool AddTexture(string TextureAditional);
 	void ChangeTexture(int From, int To);
 	float* GetWorldMatrix();
-	void Render(float* viewMatrix, float* projectionMatrix, bool showBox);
+	void RenderWithCB(float* viewMatrix, float* projectionMatrix, bool showBox, float posX, float posY, float posZ, float sx = 1, float sy = 1, float sz = 1, float rx = 0, float ry = 0, float rz = 0);
 	void Render(float* viewMatrix, float* projectionMatrix, float posX, float posY, float posZ, float sx = 1, float sy = 1, float sz = 1, float rx = 0, float ry = 0, float rz = 0);
 	void Transform();
 	float* MultiplyVectorMatrix(float*,float*);

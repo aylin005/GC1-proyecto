@@ -101,6 +101,7 @@ bool Scene::Initialize() {
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
 	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Hongo/hongo.obj", "recursos/Hongo/Mushroom2Albedo.png");
+	Collisions.push_back(Hongo);
 
 	setModel(Arco, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Arco/arco.obj", "recursos/Arco/arch_BaseColor.png");
@@ -113,12 +114,15 @@ bool Scene::Initialize() {
 
 	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
+	Collisions.push_back(Honguito1);
 
 	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
+	Collisions.push_back(Honguito2);
 
 	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/hongitos/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
+	Collisions.push_back(Honguito3);
 
 	//Skydome
 	ShaderSkydome = new SkydomeShaderClass(OpenGL, handlerWindow, "shaders/SkydomeShader.vs",
@@ -181,22 +185,22 @@ bool Scene::Render() {
 	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
 
 	//Area de hongos gigantes
-	Hongo->Render(viewMatrix, projectionMatrix, 1.22, 5.8, -124.96,  2,2,2);
-	Hongo->Render(viewMatrix, projectionMatrix, 29.285208, 5.8, -109.304688,  1,1,1);
-	Honguito1->Render(viewMatrix, projectionMatrix, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
-	Honguito3->Render(viewMatrix, projectionMatrix, 14.77, Terreno->Superficie(14.77, -94.64), -94.64, 2.5,2.5,2.5,   0,3.14,0);
-	Hongo->Render(viewMatrix, projectionMatrix, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 1.22, 5.8, -124.96,  2,2,2);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 29.285208, 5.8, -109.304688,  1,1,1);
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -94.64, 2.5,2.5,2.5,   0,3.14,0);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
 
 	Arco->Render(viewMatrix, projectionMatrix,  3.8, 2.7, 10.9,      2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f,     2, 2, 2.5);
 	//Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
-	Cabin->setTransform(-50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
-	Cabin->Render(viewMatrix, projectionMatrix, true);
-	Honguito1->Render(viewMatrix, projectionMatrix, -40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
-	Honguito2->Render(viewMatrix, projectionMatrix, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
-	Honguito2->Render(viewMatrix, projectionMatrix, -4.30, 3.8, 56.7, 2,2,2);
-	Honguito3->Render(viewMatrix, projectionMatrix, -3.92, 3.8, -33.5f);
-	Honguito3->Render(viewMatrix, projectionMatrix, 10.46f, 3.8, -8.41f);
+	//Cabin->setTransform(-50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true,-40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -4.30, 3.8, 56.7, 2,2,2);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, -3.92, 3.8, -33.5f);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 10.46f, 3.8, -8.41f);
 
 	//Billboards
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
@@ -260,18 +264,30 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	float* matrixBox = box->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixBox, -10.0, Terreno->Superficie(-10.0f, 10.0f), 10.0f);
 
-	if (Cabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+
+	//Colision
+	for (int i = 0; i < Collisions.size(); i++)
 	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
+		if (Collisions[i]->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		{
+			DeltaPosition->X = LasDeltaPosition->X;
+			DeltaPosition->Y = LasDeltaPosition->Y;
+			DeltaPosition->Z = LasDeltaPosition->Z;
+		}
 	}
-	if (box->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+
+	//if (Cabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	//{
+	//	DeltaPosition->X = LasDeltaPosition->X;
+	//	DeltaPosition->Y = LasDeltaPosition->Y;
+	//	DeltaPosition->Z = LasDeltaPosition->Z;
+	//}
+	//if (box->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	//{
+	//	DeltaPosition->X = LasDeltaPosition->X;
+	//	DeltaPosition->Y = LasDeltaPosition->Y;
+	//	DeltaPosition->Z = LasDeltaPosition->Z;
+	//}
 
 	
 
