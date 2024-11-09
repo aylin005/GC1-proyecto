@@ -132,9 +132,13 @@ bool Scene::Initialize() {
 	ShaderBillboard = new BillboardShaderClass(OpenGL, handlerWindow, "shaders/billboard.vs",
 		"shaders/billboard.ps");
 
-	Tree = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/tree.png");
-	Tree->Initialize(10.0f,5.0f);
-	Tree->SetShader(ShaderBillboard);
+	Pine1 = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/pine1.png");
+	Pine1->Initialize(4.0f, 6.0f);
+	Pine1->SetShader(ShaderBillboard);
+
+	Pine2 = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/pine2.png");
+	Pine2->Initialize(5.0f, 7.0f);
+	Pine2->SetShader(ShaderBillboard);
 
 	return result;
 }
@@ -175,24 +179,62 @@ bool Scene::Render() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
+
+	//Area de hongos gigantes
 	Hongo->Render(viewMatrix, projectionMatrix, 1.22, 5.8, -124.96,  2,2,2);
-	Hongo->Render(viewMatrix, projectionMatrix, 29.285208, 5.800000, -109.304688,  1,1,1);
+	Hongo->Render(viewMatrix, projectionMatrix, 29.285208, 5.8, -109.304688,  1,1,1);
+	Honguito1->Render(viewMatrix, projectionMatrix, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
+	Honguito3->Render(viewMatrix, projectionMatrix, 14.77, Terreno->Superficie(14.77, -94.64), -94.64, 2.5,2.5,2.5,   0,3.14,0);
+	Hongo->Render(viewMatrix, projectionMatrix, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
+
 	Arco->Render(viewMatrix, projectionMatrix,  3.8, 2.7, 10.9,      2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f,     2, 2, 2.5);
 	//Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
 	Cabin->setTransform(-50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
 	Cabin->Render(viewMatrix, projectionMatrix, true);
 	Honguito1->Render(viewMatrix, projectionMatrix, -40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
-	Honguito1->Render(viewMatrix, projectionMatrix, 39, 5.800000, -117.748398);
 	Honguito2->Render(viewMatrix, projectionMatrix, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
-	Honguito2->Render(viewMatrix, projectionMatrix, 24.0f, 3.8, 16.0f, 2,2,2);
-	Honguito3->Render(viewMatrix, projectionMatrix, 22.0f, 3.8, 17.0f);
-	Honguito3->Render(viewMatrix, projectionMatrix, 25.0f, 3.8, 17.0f);
+	Honguito2->Render(viewMatrix, projectionMatrix, -4.30, 3.8, 56.7, 2,2,2);
+	Honguito3->Render(viewMatrix, projectionMatrix, -3.92, 3.8, -33.5f);
+	Honguito3->Render(viewMatrix, projectionMatrix, 10.46f, 3.8, -8.41f);
 
 	//Billboards
-	Tree->Render(viewMatrix, projectionMatrix,
-		-15.0f, Terreno->Superficie(0.0f, 0.0f), 5.0f,
-		DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -55.91f, Terreno->Superficie(-55.91f, -48.7f), -48.7f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -66.94f, Terreno->Superficie(-66.94f, -54.6f), -54.6f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 31.14f, Terreno->Superficie(31.14f, -44.94f), -44.94f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 54.4f, Terreno->Superficie(54.4f, -36.4f), -36.4f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 84.46f, Terreno->Superficie(84.46f, -49.49f), -49.49f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 90.31f, Terreno->Superficie(90.31f, -89.8f), -89.8f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 76.8f, Terreno->Superficie(76.8f, -104.7f), -104.7f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 44.53f, Terreno->Superficie(44.53f, -89.3f), -89.3f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -14.89f, Terreno->Superficie(-14.89f, -84.12f), -84.12f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -33.57f, Terreno->Superficie(-33.57f, -93.94f), -93.94f, DeltaPosition->X, DeltaPosition->Z);
+
+
+	Pine2->Render(viewMatrix, projectionMatrix, 207.5, Terreno->Superficie(207.5, -61.19), -61.19, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 223.36, Terreno->Superficie(223.36, -21.5), -21.5, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, 190.99, Terreno->Superficie(190.99, 6.82), 6.82, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, 200.25, Terreno->Superficie(200.25, 36.94), 36.94, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 199.73, Terreno->Superficie(199.73, 81.46), 81.46, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, 187, Terreno->Superficie(187, 121.9), 121.9, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, 160.68, Terreno->Superficie(160.68, 156.15), 156.15, DeltaPosition->X, DeltaPosition->Z);
+	
+
+	Pine1->Render(viewMatrix, projectionMatrix, 2.78, Terreno->Superficie(2.78, 197.5), 197.5, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, -83.66, Terreno->Superficie(-83.66, 195.98), 195.98, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -135.65, Terreno->Superficie(-135.65, 175.7), 175.7, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -171.7, Terreno->Superficie(-171.7, 179.02), 179.02, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, -192.8, Terreno->Superficie(-192.8, 149.46), 149.46, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -192.89, Terreno->Superficie(-192.89, 149.46), 149.46, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -193.6, Terreno->Superficie(-193.6, 95.49), 95.49, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, -171.49, Terreno->Superficie(-171.49, 55.88), 55.88, DeltaPosition->X, DeltaPosition->Z);
+	
+	//Arboles de la cabaña
+	Pine1->Render(viewMatrix, projectionMatrix, -67.54, Terreno->Superficie(-67.54, -115), -115, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -32.89, Terreno->Superficie(-32.89, -116.5), -116.5, DeltaPosition->X, DeltaPosition->Z);
+	Pine2->Render(viewMatrix, projectionMatrix, -36.47, Terreno->Superficie(-36.47, -135.2), -135.2, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -61.13, Terreno->Superficie(-61.13, -124.9), -124.9, DeltaPosition->X, DeltaPosition->Z);
 
 	//Cajas
 	box->Draw(viewMatrix, projectionMatrix);

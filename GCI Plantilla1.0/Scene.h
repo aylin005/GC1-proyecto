@@ -104,6 +104,8 @@ private:
 
 	//Billboards
 	Billboard* Tree;
+	Billboard* Pine1;
+	Billboard* Pine2;
 
 	//Cajas
 	BoundingBoxRenderer* box;
