@@ -123,7 +123,7 @@ bool Scene::Initialize() {
 	//Skydome
 	ShaderSkydome = new SkydomeShaderClass(OpenGL, handlerWindow, "shaders/SkydomeShader.vs",
 		"shaders/SkydomeShader.ps");
-	Skydome = new Dome("recursos/sky.jpg", OpenGL, LoaderTexture, 300);
+	Skydome = new Dome("recursos/Texturas/midday.png", OpenGL, LoaderTexture, 400);
 	Skydome->Initialize();
 	Skydome->SetShader(ShaderSkydome);
 	Skydome->SetIterpolationDay(false, true);
@@ -175,16 +175,16 @@ bool Scene::Render() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
-	Hongo->Render(viewMatrix, projectionMatrix,  6,6,0,  2,2,2);
-	Hongo->Render(viewMatrix, projectionMatrix,  18,5,1,  1,1,1);
-	Arco->Render(viewMatrix, projectionMatrix,   25.0f, 4, -15.0f,      1.2, 1.2, 1.2);
-	Puente->Render(viewMatrix, projectionMatrix, 0.0f, 3.2, -97.0f,     2, 2, 2.5);
+	Hongo->Render(viewMatrix, projectionMatrix, 1.22, 5.8, -124.96,  2,2,2);
+	Hongo->Render(viewMatrix, projectionMatrix, 29.285208, 5.800000, -109.304688,  1,1,1);
+	Arco->Render(viewMatrix, projectionMatrix,  3.8, 2.7, 10.9,      2.5, 2.5, 2.5);
+	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f,     2, 2, 2.5);
 	//Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
-	Cabin->setTransform(-30.0f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	Cabin->setTransform(-50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
 	Cabin->Render(viewMatrix, projectionMatrix, true);
-	Honguito1->Render(viewMatrix, projectionMatrix, 20.0f, 3.8, 15.0f);
-	Honguito1->Render(viewMatrix, projectionMatrix, 23.0f, 3.8, 15.0f);
-	Honguito2->Render(viewMatrix, projectionMatrix, 21.0f, 3.8, 16.0f);
+	Honguito1->Render(viewMatrix, projectionMatrix, -40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
+	Honguito1->Render(viewMatrix, projectionMatrix, 39, 5.800000, -117.748398);
+	Honguito2->Render(viewMatrix, projectionMatrix, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
 	Honguito2->Render(viewMatrix, projectionMatrix, 24.0f, 3.8, 16.0f, 2,2,2);
 	Honguito3->Render(viewMatrix, projectionMatrix, 22.0f, 3.8, 17.0f);
 	Honguito3->Render(viewMatrix, projectionMatrix, 25.0f, 3.8, 17.0f);
@@ -286,35 +286,11 @@ bool Scene::ManageCommands() {
 	if (input->GetKey(KeyCode.L)) {
 		DeltaRotation->Y += speedAxisY * deltaTime;
 	}
-	if (input->GetKey(KeyCode.One)) {
-		Object3d1->ChangeTexture(0,0);
-	}
-	if (input->GetKey(KeyCode.Two)) {
-		Object3d1->ChangeTexture(1, 1);
-	}
-	if (input->GetKey(KeyCode.Three)) {
-		Object3d1->ChangeTexture(2, 2);
-	}
-	if (input->GetKey(KeyCode.Four)) {
-		Object3d1->ChangeTexture(3, 3);
-	}
-	if (input->GetKey(KeyCode.Five)) {
-		Object3d1->ChangeTexture(4, 4);
-	}
-	if (input->GetKey(KeyCode.Six)) {
-		Object3d1->ChangeTexture(5, 5);
-	}
-	if (input->GetKey(KeyCode.Seven)) {
-		Object3d1->ChangeTexture(6, 6);
-	}
-	if (input->GetKey(KeyCode.Eight)) {
-		Object3d1->ChangeTexture(7, 7);
-	}
-	if (input->GetKey(KeyCode.Nine)) {
-		Object3d1->ChangeTexture(8, 8);
-	}
-	if (input->GetKey(KeyCode.Zero)) {
-		Object3d1->ChangeTexture(9, 9);
+	
+	if (input->GetKey(KeyCode.P))
+	{
+		string str = "Pos: " + to_string(DeltaPosition->X) + ", " + to_string(DeltaPosition->Y) + ", " + to_string(DeltaPosition->Z) + "\n";
+		OutputDebugStringA(str.c_str());
 	}
 
 	DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2;

@@ -18,7 +18,7 @@ Dome::Dome(string pathTexture, OpenGLClass* OpenGL, TextureClass* LoaderTextureR
 	Dome::radius = 10.0f;
 	Dome::slices = 36;
 	Dome::slides = 36;
-	inicio = 0.4;
+	inicio = 0;
 	final = 1;
 	this->pathTexture = pathTexture;
 	this->OpenGL = OpenGL;
