@@ -113,15 +113,15 @@ bool Scene::Initialize() {
 		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
 
 	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
+		"recursos/hongitos2/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
 	Collisions.push_back(Honguito1);
 
 	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
+		"recursos/hongitos2/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
 	Collisions.push_back(Honguito2);
 
 	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
+		"recursos/hongitos2/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
 	Collisions.push_back(Honguito3);
 
 	//Skydome
