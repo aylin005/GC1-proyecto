@@ -186,22 +186,49 @@ bool Scene::Render() {
 
 	//Area de hongos gigantes
 	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 1.22, 5.8, -124.96,  2,2,2);
+	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 29.285208, 5.8, -109.304688,  1,1,1);
+	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
+	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -94.64, 2.5,2.5,2.5,   0,3.14,0);
+	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
+	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
 
-	Arco->Render(viewMatrix, projectionMatrix,  3.8, 2.7, 10.9,      2.5, 2.5, 2.5);
-	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f,     2, 2, 2.5);
-	//Cabin->Render(viewMatrix, projectionMatrix,  -30.0f, 3.2, -130.0f,  2.5, 2.5, 2.5,   0, 3.1416, 0);
-	//Cabin->setTransform(-50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
-	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	
 	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true,-40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
-	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
-	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -4.30, 3.8, 56.7, 2,2,2);
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, -3.92, 3.8, -33.5f);
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 10.46f, 3.8, -8.41f);
+	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
 
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
+	if (Honguito2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+	
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -4.30, 3.8, 56.7, 2,2,2);
+	if (Honguito2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, -3.92, 3.8, -33.5f);
+	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 10.46f, 3.8, -8.41f);
+	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
+	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
+	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
 	//Billboards
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -55.91f, Terreno->Superficie(-55.91f, -48.7f), -48.7f, DeltaPosition->X, DeltaPosition->Z);
@@ -410,4 +437,11 @@ bool Scene::setModel(GameObject*& model,ShaderTexture* ShaderModel, OpenGLClass*
 		}
 		model->SetShaders(ShaderModel, ShaderBox);
 	}
+}
+
+void Scene::returnLastPosition()
+{
+	DeltaPosition->X = LasDeltaPosition->X;
+	DeltaPosition->Y = LasDeltaPosition->Y;
+	DeltaPosition->Z = LasDeltaPosition->Z;
 }

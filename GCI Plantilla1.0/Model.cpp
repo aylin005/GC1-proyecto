@@ -769,7 +769,7 @@ bool Model::Fourth_LoadModelByObj(vector<VertexLoad> InfoModelo, int VertexCount
 
 }
 bool Model::CargarBuffersOpenGL(std::vector<VertexLoad> array3D) {
-	int i = 1, j = 1, vIndex = 0, tIndex = 0, nIndex = 0;
+	int i = 0, j = 1, vIndex = 0, tIndex = 0, nIndex = 0;
 	m_indexCount = (array3D.size() - 1) * 3;
 	m_vertexCount = (array3D.size() - 1) * 3;
 
@@ -777,7 +777,7 @@ bool Model::CargarBuffersOpenGL(std::vector<VertexLoad> array3D) {
 	if (!m_model)
 		return false;
 	
-	for (i = 1; i < array3D.size(); i++) {
+	for (i = 0; i < array3D.size() - 1; i++) {
 		//_RPT1(0, "i %d\n", i);
 		vIndex = array3D[i].fv1 - 1;
 		tIndex = array3D[i].ft1 - 1;

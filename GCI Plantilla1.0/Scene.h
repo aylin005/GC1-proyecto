@@ -49,12 +49,13 @@ private:
 		float Address[3];
 		float Speed[3];
 	};
+public:
 	struct Vector {
 		float X;
 		float Y;
 		float Z;
 	};
-
+private:
 	// Variables de movimiento y rotacion del personaje
 	Vector* DeltaPosition = new Vector();
 	Vector* DeltaRotation = new Vector();
@@ -142,7 +143,7 @@ public:
 	bool ManageCommands();
 	bool Shutdown();
 	bool setModel(GameObject*& model, ShaderTexture* ShaderModel, OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath);
-
+	void returnLastPosition();
 protected:
 
 
