@@ -212,6 +212,8 @@ bool Dome::Initialize()
 
 	if (pathTexture != "") {
 		TextureID1 = LoaderTexRef->Initialize(pathTexture, true);
+		TextureID2 = LoaderTexRef->Initialize("recursos/Texturas/noche.png", true);
+		TextureID3 = LoaderTexRef->Initialize(pathTexture, true);
 	}
 
 	ConstructDome();
@@ -267,6 +269,8 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 	SkyShader->PonMatriz4x4((char*)"viewMatrix", viewMatrix);
 	SkyShader->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
 	SkyShader->Pon1Entero((char*)"shaderTexture", TextureID1);
+	SkyShader->Pon1Entero((char*)"shaderTexture1", TextureID2);
+	//SkyShader->Pon1Entero((char*)"shaderTexture2", TextureID2);
 	SkyShader->PonVec3((char*)"colorShader", DeltaColor);
 
 	//Render shader

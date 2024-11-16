@@ -23,6 +23,7 @@ out vec4 outputColor;
 // UNIFORM VARIABLES //
 ///////////////////////
 uniform sampler2D shaderTexture;
+uniform sampler2D shaderTexture1;
 uniform sampler2D shaderTexture2;
 uniform vec3 lightDirection;
 uniform vec4 diffuseLightColor;
@@ -33,7 +34,9 @@ uniform vec4 diffuseLightColor;
 ////////////////////////////////////////////////////////////////////////////////
 void main(void)
 {
-	vec4 textureColor;
+	vec4 textureColor0;
+	vec4 textureColor1;
+	//vec4 textureColor2;
 	//vec3 bump;
 	//vec3 NewNormal;
 	//vec3 normalaza;
@@ -42,7 +45,9 @@ void main(void)
 
 
 	// Obtener la textura difusa o de color
-	textureColor = texture(shaderTexture, texCoord);
+	textureColor0 = texture(shaderTexture, texCoord);
+	textureColor1 = texture(shaderTexture1, texCoord);
+	//textureColor2 = texture(shaderTexture2, texCoord);
 	
 	//obtener el mapa de normales
 	//bump = texture(shaderTexture2, texCoord).rgb;
@@ -64,9 +69,11 @@ void main(void)
 	// Determine el monto de luz de color segun la resultante con la normal.
 	//outputColor =  clamp((diffuseLightColor * lightIntensity), 0.0f, 1.0f);
 
-	// Multiplica la textura color final.
-	//outputColor = outputColor * textureColor + 0.1;
-	textureColor = (textureColor + vec4(color, 1.0f)) / 2;
-	outputColor = textureColor + 0.1; // esto es para renderizar la combinacion de textura con colores
+	// Mix uses pct (a value from 0-1) to
+    // mix the two colors
+	// CAMBIAR 1.0 POR VALOR ENTRE 0 Y 1
+    outputColor = mix(textureColor0, textureColor1, 1.0);
+
+	outputColor = outputColor + 0.1; // esto es para renderizar la combinacion de textura con colores
 	//outputColor = vec4(color, 1.0f); //Esto es para solo ver los colores
 }
