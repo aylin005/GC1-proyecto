@@ -96,6 +96,29 @@ bool Scene::Initialize() {
 		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f,10.0f ,10.0f });
 	box->SetShader(ShaderBox);
 
+	Cabana1 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f,5.0f ,1.0f });
+	Cabana1->SetShader(ShaderBox);
+
+	Cabana2 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 6.0f,5.0f ,1.0f });
+	Cabana2->SetShader(ShaderBox);
+
+	Cabana3 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 6.0f,5.0f ,3.0f });
+	Cabana3->SetShader(ShaderBox);
+
+	Cabana4 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 1.0f,5.0f ,9.0f });
+	Cabana4->SetShader(ShaderBox);
+
+	Cabana5 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 2.0f,5.0f ,9.0f });
+	Cabana5->SetShader(ShaderBox);
+
+	Cabana6 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 1.0f,5.0f ,3.0f });
+	Cabana6->SetShader(ShaderBox);
 
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
@@ -269,6 +292,13 @@ bool Scene::Render() {
 
 	//Cajas
 	box->Draw(viewMatrix, projectionMatrix);
+	Cabana1->Draw(viewMatrix, projectionMatrix);
+	Cabana2->Draw(viewMatrix, projectionMatrix);
+	Cabana3->Draw(viewMatrix, projectionMatrix);
+	Cabana4->Draw(viewMatrix, projectionMatrix);
+	Cabana5->Draw(viewMatrix, projectionMatrix);
+	Cabana6->Draw(viewMatrix, projectionMatrix);
+
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
@@ -290,6 +320,26 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 	float* matrixBox = box->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixBox, -10.0, Terreno->Superficie(-10.0f, 10.0f), 10.0f);
+
+	float* matrixCabana = Cabana1->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana, -54.0, Terreno->Superficie(-10.0f, 10.0f), -140.0f);
+
+	float* matrixCabana2 = Cabana2->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana2, -50.0, Terreno->Superficie(-10.0f, 10.0f), -132.0f);
+
+	float* matrixCabana3 = Cabana3->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana3, -51.0, Terreno->Superficie(-10.0f, 10.0f), -139.0f);
+
+	float* matrixCabana4 = Cabana4->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana4, -45.0, Terreno->Superficie(-10.0f, 10.0f), -140.0f);
+
+	float* matrixCabana5 = Cabana5->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana5, -55.0, Terreno->Superficie(-10.0f, 10.0f), -140.0f);
+
+	float* matrixCabana6 = Cabana6->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCabana6, -53.5, Terreno->Superficie(-10.0f, 10.0f), -131.0f);
+	
+
 
 
 	//Colision
@@ -315,6 +365,48 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	//	DeltaPosition->Y = LasDeltaPosition->Y;
 	//	DeltaPosition->Z = LasDeltaPosition->Z;
 	//}
+
+	if (Cabana1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	if (Cabana2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	if (Cabana3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	if (Cabana4->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	if (Cabana5->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
+
+	if (Cabana6->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->X = LasDeltaPosition->X;
+		DeltaPosition->Y = LasDeltaPosition->Y;
+		DeltaPosition->Z = LasDeltaPosition->Z;
+	}
 
 	
 

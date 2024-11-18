@@ -114,6 +114,12 @@ private:
 
 	//Cajas
 	BoundingBoxRenderer* box;
+	BoundingBoxRenderer* Cabana1;
+	BoundingBoxRenderer* Cabana2;
+	BoundingBoxRenderer* Cabana3;
+	BoundingBoxRenderer* Cabana4;
+	BoundingBoxRenderer* Cabana5;
+	BoundingBoxRenderer* Cabana6;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
