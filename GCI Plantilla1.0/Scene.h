@@ -120,6 +120,18 @@ private:
 	BoundingBoxRenderer* Cabana4;
 	BoundingBoxRenderer* Cabana5;
 	BoundingBoxRenderer* Cabana6;
+	BoundingBoxRenderer* esc1;
+	BoundingBoxRenderer* esc2;
+	BoundingBoxRenderer* esc3;
+	BoundingBoxRenderer* esc4;
+	BoundingBoxRenderer* esc5;
+	BoundingBoxRenderer* esc6;
+	BoundingBoxRenderer* esc7;
+	BoundingBoxRenderer* esc8;
+	BoundingBoxRenderer* valla1;
+	BoundingBoxRenderer* valla2;
+	BoundingBoxRenderer* puentebox;
+	
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
