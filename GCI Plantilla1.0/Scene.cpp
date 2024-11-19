@@ -120,6 +120,50 @@ bool Scene::Initialize() {
 		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 1.0f,5.0f ,3.0f });
 	Cabana6->SetShader(ShaderBox);
 
+	puentebox = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 12.0f,5.0f ,30.0f });
+	puentebox->SetShader(ShaderBox);
+
+	valla1 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 1.0f,3.0f ,30.0f });
+	valla1->SetShader(ShaderBox);
+
+	valla2 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 1.0f,3.0f ,30.0f });
+	valla2->SetShader(ShaderBox);
+
+	esc1 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 0.5f ,10.0f });
+	esc1->SetShader(ShaderBox);
+
+	esc2 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 1.5f ,10.0f });
+	esc2->SetShader(ShaderBox);
+
+	esc3 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 2.5f ,10.0f });
+	esc3->SetShader(ShaderBox);
+
+	esc4 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 3.5f ,10.0f });
+	esc4->SetShader(ShaderBox);
+
+	esc5 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 0.5f ,10.0f });
+	esc5->SetShader(ShaderBox);
+
+	esc6 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 1.5f ,10.0f });
+	esc6->SetShader(ShaderBox);
+
+	esc7 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 2.5f ,10.0f });
+	esc7->SetShader(ShaderBox);
+
+	esc8 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 3.5f ,10.0f });
+	esc8->SetShader(ShaderBox);
+
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
 	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
@@ -309,6 +353,17 @@ bool Scene::Render() {
 	Cabana4->Draw(viewMatrix, projectionMatrix);
 	Cabana5->Draw(viewMatrix, projectionMatrix);
 	Cabana6->Draw(viewMatrix, projectionMatrix);
+	puentebox->Draw(viewMatrix, projectionMatrix);
+	valla1->Draw(viewMatrix, projectionMatrix);
+	valla2->Draw(viewMatrix, projectionMatrix);
+	esc1->Draw(viewMatrix, projectionMatrix);
+	esc2->Draw(viewMatrix, projectionMatrix);
+	esc3->Draw(viewMatrix, projectionMatrix);
+	esc4->Draw(viewMatrix, projectionMatrix);
+	esc5->Draw(viewMatrix, projectionMatrix);
+	esc6->Draw(viewMatrix, projectionMatrix);
+	esc7->Draw(viewMatrix, projectionMatrix);
+	esc8->Draw(viewMatrix, projectionMatrix);
 
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
@@ -349,6 +404,39 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 	float* matrixCabana6 = Cabana6->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixCabana6, -53.5, Terreno->Superficie(-10.0f, 10.0f), -131.0f);
+
+	float* matrixPuente = puentebox->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixPuente, -2.0f, Terreno->Superficie(-10.0f, 10.0f), -80.0f);
+
+	float* matrixvalla1 = valla1->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixvalla1, 8.5f, 8.5f, -80.0f);
+
+	float* matrixvalla2 = valla2->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixvalla2, -2.3f, 8.5f, -80.0f);
+
+	float* matrixesc1 = esc1->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc1, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -54.0f);
+
+	float* matrixesc2 = esc2->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc2, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -55.5f);
+
+	float* matrixesc3 = esc3->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc3, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -57.0f);
+
+	float* matrixesc4 = esc4->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc4, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -59.0f);
+
+	float* matrixesc5 = esc5->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc5, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -87.0f);
+
+	float* matrixesc6 = esc6->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc6, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -85.5f);
+
+	float* matrixesc7 = esc7->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc7, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -84.0f);
+
+	float* matrixesc8 = esc8->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixesc8, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -82.0f);
 
 	//Colision
 	for (int i = 0; i < Collisions.size(); i++)
