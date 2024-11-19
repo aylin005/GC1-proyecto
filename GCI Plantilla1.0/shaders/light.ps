@@ -42,6 +42,13 @@ void main(void)
 
 	// Obtener la textura difusa o de color
 	textureColor = texture(shaderTexture, texCoord);
+
+	// Descartar píxeles casi transparentes
+	
+	if(textureColor.a < 0.1){
+		discard;
+	}
+
 	//obtener el mapa de normales
 	bump = texture(shaderTexture2, texCoord).rgb;
 	//el mapa de normales va de 0 a 1 o sea de 0 a 90 grados, debe pasar de -1 a 1 y -90 a 90 grados

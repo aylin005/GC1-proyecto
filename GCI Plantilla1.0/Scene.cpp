@@ -132,6 +132,12 @@ bool Scene::Initialize() {
 	setModel(Puente, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Puente2/Puente2.obj", "recursos/Puente2/TexturaPuente.png");
 
+	setModel(SakuraTree, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
+		"recursos/SakuraTree/Sakura.obj", "recursos/SakuraTree/Sakura_img.png");
+
+	//setModel(Columpio, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
+		//"recursos/Columpio/ColumpioS.obj", "recursos/SakuraTree/Sakura_img.png");
+
 	setModel(Cabin, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
 
@@ -252,6 +258,11 @@ bool Scene::Render() {
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
 	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 18.0f, 2.7, 90.0f, 2.5, 2.5, 2.5);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 40.0f, 2.7, 81.0f, 2.5, 2.5, 2.5);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 46.0f, 2.7, 53.0f, 2.5, 2.5, 2.5);
+	//Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
+
 	//Billboards
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -55.91f, Terreno->Superficie(-55.91f, -48.7f), -48.7f, DeltaPosition->X, DeltaPosition->Z);

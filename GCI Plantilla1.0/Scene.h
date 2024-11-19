@@ -106,6 +106,8 @@ private:
 	GameObject* Honguito1;
 	GameObject* Honguito2;
 	GameObject* Honguito3;
+	GameObject* SakuraTree;
+	GameObject* Columpio;
 
 	//Billboards
 	Billboard* Tree;
