@@ -30,6 +30,7 @@ public:
 	bool PonMatriz4x4(char* nombre, float* matriz);
 
 	bool Pon1Entero(char* nombre, unsigned int valor);
+	bool Pon1Float(char* nombre, float valor);
 
 	bool PonVec3(char* nombre, float* vector);
 

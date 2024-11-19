@@ -36,6 +36,13 @@ private:
 	float ColorInicial[4] = { 1.00f, 1.00f, 1.00f, 1.00f };
 	float* DeltaColor;
 
+	//Cambio de textura SkyDome
+	float mixColor;
+	float timer;
+	bool dia_tarde = false;
+	bool tarde_noche = false;
+	bool noche_dia = false;
+
 	void ConstructDome();
 	OpenGLClass* OpenGL;
 	TextureClass* LoaderTexRef;

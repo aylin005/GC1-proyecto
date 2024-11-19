@@ -190,6 +190,8 @@ bool Dome::Redraw() {
 
 bool Dome::Initialize()
 {
+	mixColor = 0.0f;
+	timer = 0.0f;
 	myMatrix = new float[16] { 0.0f };
 	if (!OpenGL) {
 		return false;
@@ -263,6 +265,14 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 
 	// ** Definimos la traslacion **
 	MatrixTranslation();
+	timer += 0.01;
+	if (timer > 25)
+		timer = 0;
+
+	if (mixColor < 1.0f)
+		mixColor += 0.01;
+	else
+		mixColor = 0.0f;
 
 	SkyShader->SetShader();
 	SkyShader->PonMatriz4x4((char*)"worldMatrix", myMatrix);
@@ -270,7 +280,9 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 	SkyShader->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
 	SkyShader->Pon1Entero((char*)"shaderTexture", TextureID1);
 	SkyShader->Pon1Entero((char*)"shaderTexture1", TextureID2);
-	//SkyShader->Pon1Entero((char*)"shaderTexture2", TextureID2);
+	SkyShader->Pon1Entero((char*)"shaderTexture2", TextureID2);
+	SkyShader->Pon1Float((char*)"mixValue", mixColor);
+	SkyShader->Pon1Float((char*)"timer", timer);
 	SkyShader->PonVec3((char*)"colorShader", DeltaColor);
 
 	//Render shader

@@ -338,19 +338,12 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 	float* matrixCabana6 = Cabana6->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixCabana6, -53.5, Terreno->Superficie(-10.0f, 10.0f), -131.0f);
-	
-
-
 
 	//Colision
 	for (int i = 0; i < Collisions.size(); i++)
 	{
 		if (Collisions[i]->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-		{
-			DeltaPosition->X = LasDeltaPosition->X;
-			DeltaPosition->Y = LasDeltaPosition->Y;
-			DeltaPosition->Z = LasDeltaPosition->Z;
-		}
+			returnLastPosition();
 	}
 
 	//if (Cabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
@@ -367,46 +360,23 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	//}
 
 	if (Cabana1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
 
 	if (Cabana2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
 
 	if (Cabana3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
 
 	if (Cabana4->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
 
 	if (Cabana5->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
 
 	if (Cabana6->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	{
-		DeltaPosition->X = LasDeltaPosition->X;
-		DeltaPosition->Y = LasDeltaPosition->Y;
-		DeltaPosition->Z = LasDeltaPosition->Z;
-	}
+		returnLastPosition();
+
 
 	
 

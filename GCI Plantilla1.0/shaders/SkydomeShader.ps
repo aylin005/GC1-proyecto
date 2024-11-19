@@ -7,7 +7,7 @@
 /////////////////////
 // INPUT VARIABLES //
 /////////////////////
-in vec3 color;
+in vec3 color; 
 in vec2 texCoord;
 in vec3 normal;
 in vec3 tang;
@@ -22,6 +22,9 @@ out vec4 outputColor;
 ///////////////////////
 // UNIFORM VARIABLES //
 ///////////////////////
+uniform float mixValue; //numero entre 0 y 1 para hacer el mix
+uniform timer;
+
 uniform sampler2D shaderTexture;
 uniform sampler2D shaderTexture1;
 uniform sampler2D shaderTexture2;
@@ -36,44 +39,32 @@ void main(void)
 {
 	vec4 textureColor0;
 	vec4 textureColor1;
-	//vec4 textureColor2;
-	//vec3 bump;
-	//vec3 NewNormal;
-	//vec3 normalaza;
-	//vec3 lightDir;
-	//float lightIntensity;
+	vec4 textureColor2;
 
 
 	// Obtener la textura difusa o de color
 	textureColor0 = texture(shaderTexture, texCoord);
 	textureColor1 = texture(shaderTexture1, texCoord);
-	//textureColor2 = texture(shaderTexture2, texCoord);
-	
-	//obtener el mapa de normales
-	//bump = texture(shaderTexture2, texCoord).rgb;
-	//el mapa de normales va de 0 a 1 o sea de 0 a 90 grados, debe pasar de -1 a 1 y -90 a 90 grados
-	//bump = 2.0 * bump - vec3(1.0,1.0,1.0);
-	//incluir la tang la binormal y la normal
-	//mat3 TBN = mat3(tang, binorm, normal);
-	//afectar el mapa de normales a la nueva posicion mundial
-	//normalaza = TBN * bump; 
-	//normalizamos la normal y la multiplicamos por el vector de luz para generar sombras
-    //NewNormal = normalize(normalaza);
+	textureColor2 = texture(shaderTexture2, texCoord);
 
-	// Invertimos la direccion de la luz para calculos.
-	//lightDir = -lightDirection;
 
-	// Calcula el monto de luz segun el vector de luz y la normal de la textura.
-	//lightIntensity = clamp(dot(NewNormal, lightDir), 0.0f, 1.0f);
-	//float l2 = clamp(dot(normal, lightDir), 0.0f, 1.0f);
-	// Determine el monto de luz de color segun la resultante con la normal.
-	//outputColor =  clamp((diffuseLightColor * lightIntensity), 0.0f, 1.0f);
-
-	// Mix uses pct (a value from 0-1) to
     // mix the two colors
-	// CAMBIAR 1.0 POR VALOR ENTRE 0 Y 1
-    outputColor = mix(textureColor0, textureColor1, 1.0);
+    //outputColor = mix(textureColor0, textureColor1, mixValue);
 
-	outputColor = outputColor + 0.1; // esto es para renderizar la combinacion de textura con colores
+	if(timer > 0 && timer <= 3.0)
+	{
+		outputColor = mix(textureColor0, textureColor1, mixValue);
+	}
+	else if (timer > 3.0 && timer <= 6.0)
+	{
+		outputColor = mix(textureColor1, textureColor2, mixValue);
+	}
+	else if (timer > 6.0 && timer <= 9.0)
+	{
+		outputColor = mix(textureColor2, textureColor0, mixValue);
+	}
+
+	//outputColor = outputColor + 0.1; // esto es para renderizar la combinacion de textura con colores
 	//outputColor = vec4(color, 1.0f); //Esto es para solo ver los colores
+	//outputColor = vec4(mixValue,mixValue,mixValue, 1.0); // Renderiza la variable mixColor como color
 }
