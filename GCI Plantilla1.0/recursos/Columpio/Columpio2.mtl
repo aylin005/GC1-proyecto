@@ -1,12 +1,12 @@
-# Blender 4.2.2 LTS MTL File: 'ColumpioS.blend'
+# Blender 4.2.2 LTS MTL File: 'Columpio2.blend'
 # www.blender.org
 
-newmtl columpio_img
-Ns 21.157019
+newmtl Sak_col
+Ns 17.376032
 Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 illum 2
-map_Kd columpio_img.png
-map_d columpio_img.png
+map_Kd Sak_col.png
+map_d Sak_col.png

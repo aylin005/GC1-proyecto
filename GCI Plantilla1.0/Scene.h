@@ -108,6 +108,9 @@ private:
 	GameObject* Honguito3;
 	GameObject* SakuraTree;
 	GameObject* Columpio;
+	GameObject* Arbol;
+	GameObject* Ventana;
+	GameObject* Puerta;
 
 	//Billboards
 	Billboard* Tree;
@@ -133,6 +136,12 @@ private:
 	BoundingBoxRenderer* valla1;
 	BoundingBoxRenderer* valla2;
 	BoundingBoxRenderer* puentebox;
+	BoundingBoxRenderer* Sakura;
+	BoundingBoxRenderer* Sakura1;
+	BoundingBoxRenderer* Sakura2;
+	BoundingBoxRenderer* SakuraC;
+	BoundingBoxRenderer* Sakura3;
+	BoundingBoxRenderer* CasaArbol;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;

@@ -164,6 +164,30 @@ bool Scene::Initialize() {
 		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 10.0f, 3.5f ,10.0f });
 	esc8->SetShader(ShaderBox);
 
+	Sakura = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 4.0f,3.0f ,4.0f });
+	Sakura->SetShader(ShaderBox);
+
+	Sakura1 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 4.0f,3.0f ,4.0f });
+	Sakura1->SetShader(ShaderBox);
+
+	Sakura2 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 4.0f,3.0f ,4.0f });
+	Sakura2->SetShader(ShaderBox);
+
+	Sakura3 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 4.0f,3.0f ,4.0f });
+	Sakura3->SetShader(ShaderBox);
+
+	SakuraC = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 2.0f,4.0f ,2.0f });
+	SakuraC->SetShader(ShaderBox);
+
+	CasaArbol = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 5.0f,3.0f ,5.0f });
+	CasaArbol->SetShader(ShaderBox);
+
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
 	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
@@ -177,10 +201,16 @@ bool Scene::Initialize() {
 		"recursos/Puente2/Puente2.obj", "recursos/Puente2/TexturaPuente.png");
 
 	setModel(SakuraTree, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/SakuraTree/Sakura.obj", "recursos/SakuraTree/Sakura_img.png");
+		"recursos/SakuraTree/Sakura.obj", "recursos/SakuraTree/Sakura_img2.png");
 
-	//setModel(Columpio, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		//"recursos/Columpio/ColumpioS.obj", "recursos/SakuraTree/Sakura_img.png");
+	setModel(Columpio, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
+		"recursos/Columpio/Columpio2.obj", "recursos/Columpio/Sak_col2.png");
+
+	setModel(Arbol, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
+		"recursos/Arbol/ArbolCasa.obj", "recursos/Arbol/ArbolCasa.png");
+
+	setModel(Ventana, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
+		"recursos/Ventana/Ventana2.obj", "recursos/Ventana/window_BaseColor.png");
 
 	setModel(Cabin, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
@@ -305,7 +335,10 @@ bool Scene::Render() {
 	SakuraTree->Render(viewMatrix, projectionMatrix, 18.0f, 2.7, 90.0f, 2.5, 2.5, 2.5);
 	SakuraTree->Render(viewMatrix, projectionMatrix, 40.0f, 2.7, 81.0f, 2.5, 2.5, 2.5);
 	SakuraTree->Render(viewMatrix, projectionMatrix, 46.0f, 2.7, 53.0f, 2.5, 2.5, 2.5);
-	//Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
+	Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
+	Arbol->Render(viewMatrix, projectionMatrix, -24.0f, 3.5, 35.0f, 3.5, 3.5, 3.5);
+	Ventana->Render(viewMatrix, projectionMatrix, -22.2f, 4.5, 35.9f, 1.5, 1.5, 1.5, 0, 2.5708, -0.15);
+	Ventana->Render(viewMatrix, projectionMatrix, -24.8f, 4.5, 33.3f, 1.5, 1.5, 1.5, 0, 1.8708, 0.15);
 
 	//Billboards
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
@@ -364,7 +397,13 @@ bool Scene::Render() {
 	esc6->Draw(viewMatrix, projectionMatrix);
 	esc7->Draw(viewMatrix, projectionMatrix);
 	esc8->Draw(viewMatrix, projectionMatrix);
-
+	Sakura->Draw(viewMatrix, projectionMatrix);
+	Sakura1->Draw(viewMatrix, projectionMatrix);
+	Sakura2->Draw(viewMatrix, projectionMatrix);
+	Sakura3->Draw(viewMatrix, projectionMatrix);
+	SakuraC->Draw(viewMatrix, projectionMatrix);
+	CasaArbol->Draw(viewMatrix, projectionMatrix);
+	
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
@@ -438,6 +477,24 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	float* matrixesc8 = esc8->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixesc8, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -82.0f);
 
+	float* matrixSakura = Sakura->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixSakura, 15.5f, Terreno->Superficie(-10.0f, 10.0f), 86.5f);
+
+	float* matrixSakura1 = Sakura1->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixSakura1, 37.5f, Terreno->Superficie(-10.0f, 10.0f), 77.5f);
+
+	float* matrixSakura2 = Sakura2->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixSakura2, 43.5f, Terreno->Superficie(-10.0f, 10.0f), 49.5f);
+
+	float* matrixSakura3 = Sakura3->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixSakura3, 24.0f, Terreno->Superficie(-10.0f, 10.0f), 64.0f);
+
+	float* matrixSakuraC = SakuraC->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixSakuraC, 21.6f, Terreno->Superficie(-10.0f, 10.0f), 65.6f);
+
+	float* matrixCasa = CasaArbol->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixCasa, -26.4f, Terreno->Superficie(-10.0f, 10.0f), 32.5f);
+
 	//Colision
 	for (int i = 0; i < Collisions.size(); i++)
 	{
@@ -474,6 +531,24 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 		returnLastPosition();
 
 	if (Cabana6->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Sakura->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Sakura1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Sakura2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Sakura3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (SakuraC->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (CasaArbol->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
 
