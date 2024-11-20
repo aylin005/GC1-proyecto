@@ -190,6 +190,10 @@ bool Scene::Initialize() {
 
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
+
+	setModel(Star, ShaderModel, OpenGL, handlerWindow, LoaderTexture, 
+		"recursos/Star/objStar.obj", "recursos/Star/StarTextura.png");
+
 	setModel(Hongo, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
 		"recursos/Hongo/hongo.obj", "recursos/Hongo/Mushroom2Albedo.png");
 	Collisions.push_back(Hongo);
@@ -328,6 +332,15 @@ bool Scene::Render() {
 	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 10.46f, 3.8, -8.41f);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
+
+	//ESTRELLA
+	if (starRotation <= 2 * 3.1416)
+		starRotation += 0.02;
+	else
+		starRotation = 0.0;
+	//if(starFloating)
+
+	Star->RenderWithCB(viewMatrix, projectionMatrix, true, 25, 4, -20, 2,2,2, 0, starRotation, 0);
 
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
@@ -538,6 +551,12 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	if (CasaArbol->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
+	if (Star->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		//DeltaPosition->Y += 3;
+		//Llamar función 3era persona
+	}
+		
 
 	
 

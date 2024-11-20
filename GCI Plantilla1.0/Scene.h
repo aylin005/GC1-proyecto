@@ -111,6 +111,7 @@ private:
 	GameObject* Arbol;
 	GameObject* Ventana;
 	GameObject* Puerta;
+	GameObject* Star;
 
 	//Billboards
 	Billboard* Tree;
@@ -159,6 +160,13 @@ private:
 	//Banderas de habilitacion
 	bool RenderObject3d = true;
 	bool RenderBilboard = true;
+
+	//animacion estrella
+	float starRotation = 0.0;
+	float starFloating = 0.0;
+
+	//VEHICULO
+	bool is3rdPerson = false;
 
 public:
 	Scene(OpenGLClass* OpenGLObject, HWND hwnd);
