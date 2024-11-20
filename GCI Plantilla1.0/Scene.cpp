@@ -230,7 +230,7 @@ bool Scene::Initialize() {
 	//Skydome
 	ShaderSkydome = new SkydomeShaderClass(OpenGL, handlerWindow, "shaders/SkydomeShader.vs",
 		"shaders/SkydomeShader.ps");
-	Skydome = new Dome("recursos/Texturas/midday.png", OpenGL, LoaderTexture, 400);
+	Skydome = new Dome("recursos/Texturas/morning.png", OpenGL, LoaderTexture, 400);
 	Skydome->Initialize();
 	Skydome->SetShader(ShaderSkydome);
 	Skydome->SetIterpolationDay(false, true);
@@ -501,19 +501,6 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 		if (Collisions[i]->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 			returnLastPosition();
 	}
-
-	//if (Cabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	//{
-	//	DeltaPosition->X = LasDeltaPosition->X;
-	//	DeltaPosition->Y = LasDeltaPosition->Y;
-	//	DeltaPosition->Z = LasDeltaPosition->Z;
-	//}
-	//if (box->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
-	//{
-	//	DeltaPosition->X = LasDeltaPosition->X;
-	//	DeltaPosition->Y = LasDeltaPosition->Y;
-	//	DeltaPosition->Z = LasDeltaPosition->Z;
-	//}
 
 	if (Cabana1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();

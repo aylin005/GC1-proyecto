@@ -223,8 +223,8 @@ bool Dome::Initialize()
 
 	if (pathTexture != "") {
 		TextureID1 = LoaderTexRef->Initialize(pathTexture, true);
-		TextureID2 = LoaderTexRef->Initialize("recursos/Texturas/texterr2.jpg", true);
-		TextureID3 = LoaderTexRef->Initialize("recursos/Texturas/noche.png", true);
+		TextureID2 = LoaderTexRef->Initialize("recursos/Texturas/midday.png", true);
+		TextureID3 = LoaderTexRef->Initialize("recursos/Texturas/night.png", true);
 	}
 
 	ConstructDome();
@@ -274,15 +274,15 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 
 	// ** Definimos la traslacion **
 	MatrixTranslation();
-	timer += 0.2f;
+	timer += 0.005f;
 	if (timer >= 8.0f)
 		timer = 0.0f;
 
-	//mixColor deprecated
-	if (mixColor < 1.0f)
-		mixColor += 0.01;
-	else
-		mixColor = 0.0f;
+
+	//if (mixColor < 1.0f)
+	//	mixColor += 0.01;
+	//else
+	//	mixColor = 0.0f;
 
 	SkyShader->SetShader();
 	SkyShader->PonMatriz4x4((char*)"worldMatrix", myMatrix);
