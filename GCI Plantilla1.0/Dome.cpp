@@ -144,6 +144,15 @@ bool Dome::Redraw() {
 	m_vertexCount = slices * slides * 3;
 	m_indexCount = (slices) * (slides) * 6;
 
+	printf("m_VertexCount %i", m_vertexCount);
+
+	//Release the arrays now that the vertex and index buffers have been created and loaded
+	delete[]vertices;
+	vertices = 0;
+
+	delete[]indices;
+	indices = 0;
+
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices)
 		return false;
@@ -214,8 +223,8 @@ bool Dome::Initialize()
 
 	if (pathTexture != "") {
 		TextureID1 = LoaderTexRef->Initialize(pathTexture, true);
-		TextureID2 = LoaderTexRef->Initialize("recursos/Texturas/noche.png", true);
-		TextureID3 = LoaderTexRef->Initialize(pathTexture, true);
+		TextureID2 = LoaderTexRef->Initialize("recursos/Texturas/texterr2.jpg", true);
+		TextureID3 = LoaderTexRef->Initialize("recursos/Texturas/noche.png", true);
 	}
 
 	ConstructDome();
@@ -265,10 +274,11 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 
 	// ** Definimos la traslacion **
 	MatrixTranslation();
-	timer += 0.01;
-	if (timer > 25)
-		timer = 0;
+	timer += 0.2f;
+	if (timer >= 8.0f)
+		timer = 0.0f;
 
+	//mixColor deprecated
 	if (mixColor < 1.0f)
 		mixColor += 0.01;
 	else
@@ -278,9 +288,9 @@ bool Dome::Render(float* viewMatrix, float* projectionMatrix)
 	SkyShader->PonMatriz4x4((char*)"worldMatrix", myMatrix);
 	SkyShader->PonMatriz4x4((char*)"viewMatrix", viewMatrix);
 	SkyShader->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
-	SkyShader->Pon1Entero((char*)"shaderTexture", TextureID1);
+	SkyShader->Pon1Entero((char*)"shaderTexture0", TextureID1);
 	SkyShader->Pon1Entero((char*)"shaderTexture1", TextureID2);
-	SkyShader->Pon1Entero((char*)"shaderTexture2", TextureID2);
+	SkyShader->Pon1Entero((char*)"shaderTexture2", TextureID3);
 	SkyShader->Pon1Float((char*)"mixValue", mixColor);
 	SkyShader->Pon1Float((char*)"timer", timer);
 	SkyShader->PonVec3((char*)"colorShader", DeltaColor);
