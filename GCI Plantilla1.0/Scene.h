@@ -34,8 +34,8 @@ const float SCREEN_NEAR = 0.1f;
 const float SPEED_AXIS_Y = 0.05f;
 const float SPEED_AXIS_X = 0.05f;
 const float SPEED_CAMERA = 0.01f;
-//const float InitialPosition[3] = { 0.0f, 11.0f, -10.0f };
-const float InitialPosition[3] = { -55.3f, 11.0f, 132.0f };
+//const float InitialPosition[3] = { -55.3f, 11.0f, 132.0f }; //Inicio del recorrido
+const float InitialPosition[3] = { 40.467304, 5.800000, -86.949074 }; //Enfrente del rio
 const float InitialRotation[3] = { 0.0f, 90, 0.0f };
 
 
@@ -81,6 +81,7 @@ private:
 	ColorShaderClass* ColorShader;
 	ShaderBoundingBox* ShaderBounding;
 	ShaderTexture* ShaderModel;
+	ShaderTexture* ShaderWater;
 	SkydomeShaderClass* ShaderSkydome;
 	BillboardShaderClass* ShaderBillboard;
 	ShaderBoundingBox* ShaderBox;
@@ -93,6 +94,7 @@ private:
 	InputClass* input;
 	float deltaTime;
 
+	float waterTime = 0;
 	TextureClass* LoaderTexture;
 
 	std::vector<GameObject*> Collisions; //Vector que guarda todos los Modelos que tendran colisiones
@@ -114,6 +116,7 @@ private:
 	GameObject* Ventana;
 	GameObject* Puerta;
 	GameObject* Star;
+	GameObject* Water;
 
 	//Billboards
 	Billboard* Tree;

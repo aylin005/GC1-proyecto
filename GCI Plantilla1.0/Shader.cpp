@@ -83,6 +83,20 @@ bool Shader::PonVec3(char* nombre, float* vector)
 	return true;
 }
 
+bool Shader::PonVec2(char* nombre, float* vector)
+{
+	unsigned int location;
+
+	// Set the texture in the pixel shader to use the data from the first texture unit.
+	location = OpenGL->glGetUniformLocation(m_shaderProgram, nombre);
+	if (location == -1)
+	{
+		return false;
+	}
+	OpenGL->glUniform2fv(location, 1, vector);
+	return true;
+}
+
 bool Shader::PonVec4(char* nombre, float* vector)
 {
 	unsigned int location;

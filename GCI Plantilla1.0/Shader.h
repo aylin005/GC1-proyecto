@@ -33,6 +33,7 @@ public:
 	bool Pon1Float(char* nombre, float valor);
 
 	bool PonVec3(char* nombre, float* vector);
+	bool PonVec2(char* nombre, float* vector);
 
 	bool PonVec4(char* nombre, float* vector);
 };

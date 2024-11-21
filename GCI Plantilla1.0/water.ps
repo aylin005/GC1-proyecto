@@ -1,0 +1,69 @@
+#version 400 core
+
+in vec2 texCoord;
+in vec3 normal;
+in vec3 tangente;
+in vec3 binormal;
+in vec3 position;
+in vec3 viewDirec;
+
+out vec4 outputColor;
+
+uniform sampler2D colorText;      // textura del agua
+uniform sampler2D normText;       // normal map del agua
+uniform sampler2D specText;       // especular del agua
+
+uniform float FAA;//luz de ambiente
+uniform float FAD;//luz difusa
+uniform float FAS;//luz especular
+
+uniform vec2 water;
+uniform vec3 lightDirection;
+
+void main(void)
+{
+    vec4 textureColor;
+    float shininess = 30.0;
+    vec4 ambientaLight = vec4(1.0, 1.0, 1.0, 1.0);
+    vec4 colorDiff = vec4(1.0, 1.0, 1.0, 1.0);
+    vec4 specularLight = vec4(1.0, 1.0, 1.0, 1.0);
+    vec3 bumpNorm;
+    float diff;
+    vec4 bump;
+    vec4 auxAmb;
+    vec4 auxDiff;
+
+    //normalizacion de la luz
+    vec3 light = normalize(lightDirection);
+
+
+    // textura
+    textureColor = texture(colorText, texCoord * water[0]); //se ajusta la textura
+    light = normalize(light - position);
+    auxAmb = ambientaLight * FAA;
+
+    // normales
+    mat3 TBN = mat3(tangente, binormal, normal);
+
+    bump = texture(normText, texCoord + water[0]);
+    bump = 2.0 * bump - 1.0;
+    bump.x = -1.0 * bump.x; // Invertir para coincidir con el espacio
+    bumpNorm = normalize(TBN * vec3(bump));
+
+    // luz difusa
+    diff = clamp(dot(light, bumpNorm), 0.0, 1.0);
+    auxDiff = colorDiff * FAD * diff;
+
+    // wspecular
+    vec3 refDir = normalize(reflect(light, bumpNorm));
+    vec4 specMap = 1.0 - texture(specText, texCoord + water[0]); //para intensidad del brillo
+    float spec = pow(max(dot(viewDirec, refDir), 0.0), shininess);
+    vec4 auxSpec = specMap * specularLight * FAS * spec;
+
+    // Color del agua con iluminación
+    vec4 waterColor = textureColor * (auxAmb + auxDiff + auxSpec);
+
+   float alpha = 0.6; // Transparencia 
+   outputColor = vec4(waterColor.rgb, alpha);
+   //outputColor = texture(colorText, texCoord);
+}

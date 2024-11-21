@@ -21,6 +21,8 @@ private:
 	float * worldmatrix;
 	Shader* ShaderOfModel;
 	Shader* ShaderOfBox;
+	float uTime;
+	float flujo = 0;
 
 	float center[4];
 	BoundingBox::GLFLOAT3 points[8];
@@ -61,7 +63,7 @@ public:
 	float* MultiplyVectorMatrix(float*,float*);
 	float scale;
 	void Shutdown();
-
+	void RenderWater(OpenGLClass* OpenGL, float* worldMatrix, float* viewMatrix, float* projectionMatrix, float x, float y, float z, float pTime);
 	float* GetCenter();
 	void UpdateBox();
 	bool GetSphericalCollision(float, float, float, float);

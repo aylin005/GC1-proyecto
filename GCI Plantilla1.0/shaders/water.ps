@@ -1,0 +1,17 @@
+#version 330 core
+
+in vec2 texCoord; // Coordenadas de textura desde el vertex shader
+
+uniform vec3 uWaterColor; // Color base del agua
+uniform sampler2D uTexture; // Textura del agua (opcional)
+
+out vec4 FragColor;
+
+void main() {
+    vec3 baseColor = uWaterColor;
+
+    // Si tienes una textura, mezcla el color base con la textura
+    vec3 textureColor = texture(uTexture, texCoord).rgb;
+
+    FragColor = vec4(baseColor * textureColor, 1.0);
+}

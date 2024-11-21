@@ -23,3 +23,52 @@ public:
 };
 
 #endif
+
+#pragma once
+#ifndef _WATERSHADERCLASS_H_
+#define _WATERSHADERCLASS_H_
+//#include <GL/glew.h>
+//#include <glm/glm.hpp>
+//#include <GLFW/glfw3.h>
+#include "Shader.h"
+
+class WaterShaderClass : virtual public Shader
+{
+private:
+    OpenGLClass* OpenGL;
+    HWND hwnd;
+    GLuint m_shaderProgram;
+    GLint m_waterTextureLocation;
+    GLint m_timeLocation;
+protected:
+    void BindAttributeLocation()
+    {
+
+    }
+
+
+public:
+    // Al mismo tiempo que obtenemos los parametros, ejecutamos el constructor de la clase padre
+    WaterShaderClass(OpenGLClass* OpenGL, HWND hwnd) : Shader(OpenGL, hwnd)
+    {
+        this->OpenGL = OpenGL;
+        this->hwnd = hwnd;
+    }
+    // Al mismo tiempo que obtenemos los parametros, ejecutamos el constructor de la clase padre
+    // y luego brindamos los archivos para inicializar el shader
+    WaterShaderClass(OpenGLClass* OpenGL, HWND hwnd, const char* vsFilename, const char* fsFilename) : Shader(OpenGL, hwnd)
+    {
+        this->OpenGL = OpenGL;
+        this->hwnd = hwnd;
+        Initialize(vsFilename, fsFilename);
+    }
+    GLuint getShaderID()
+    {
+        return m_shaderProgram;
+    }
+
+    ~WaterShaderClass()
+    {}
+};
+
+#endif

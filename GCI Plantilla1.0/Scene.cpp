@@ -105,8 +105,37 @@ bool Scene::Initialize() {
 		return result;
 	}
 
+	ShaderWater = new ShaderTexture(OpenGL, handlerWindow, "shaders/light.vs", "shaders/light.ps");
+	if (!ShaderWater) {
+		result = false;
+		MessageBoxA(handlerWindow, "Could not declared and initialized the shader model object.", "Error", MB_OK);
+		_RPT1(0, "Alert! ShaderWater has an error on declare and not been initialized. \n", 0);
+		return result;
+	}
+
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
+
+
+	//MODELO DEL AGUA
+	Water = new GameObject(OpenGL, handlerWindow, LoaderTexture,
+		"recursos/waterPlane.obj", "recursos/Water_001_COLOR.jpg");
+	if (!Water) {
+		result = false;
+		MessageBoxA(handlerWindow, "Could not initialize the GameObject.", "Error", MB_OK);
+		_RPT1(0, "Alert! GameObject has an error on start. \n", 0);
+		return result;
+	}
+	else {
+		result = Water->Initialize();
+		if (!result) {
+			MessageBoxA(handlerWindow, "Could not initialize the model of Gameobject.", "Error", MB_OK);
+			_RPT1(0, "Alert! GameObject has an error on initialize. \n", 0);
+			return result;
+		}
+		Water->SetShaders(ShaderWater, ShaderBox);
+	}
+
 	//Hice esta clase setModel para que ocupe menos espacio, es lo mismo que se tenía antes pero en una función
 
 	box = new BoundingBoxRenderer(OpenGL,
@@ -319,6 +348,7 @@ bool Scene::Initialize() {
 	return result;
 }
 
+
 bool Scene::Render() {
 	bool result = true;
 
@@ -432,6 +462,9 @@ bool Scene::Render() {
 	else {
 		Star->RenderWithCB(viewMatrix, projectionMatrix, true, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
 	}
+
+	Water->Render(viewMatrix, projectionMatrix, 11, 2, -67.7, 14, 0, 10, 0, 3.1416 / 2, 0);
+
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
 	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);

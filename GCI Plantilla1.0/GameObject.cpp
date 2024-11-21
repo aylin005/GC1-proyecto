@@ -123,12 +123,16 @@ void GameObject::Render(float* viewMatrix, float* projectionMatrix, float posX, 
 {
 	if (model) {
 
+		uTime += 0.1;
+
 		setTransform(posX, posY, posZ, sx, sy, sz, rx, ry, rz);
 
 		ShaderOfModel->SetShader();
 		ShaderOfModel->PonMatriz4x4((char*)"worldMatrix", worldmatrix);
 		ShaderOfModel->PonMatriz4x4((char*)"viewMatrix", viewMatrix);
 		ShaderOfModel->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
+		ShaderOfModel->PonMatriz4x4((char*)"projectionMatrix", projectionMatrix);
+		//ShaderOfModel->Pon1Float((char*)"uTime", uTime);
 		model->Render(ShaderOfModel);
 	}
 }

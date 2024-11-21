@@ -196,6 +196,8 @@
     <None Include="shaders\texture.vs" />
     <None Include="shaders\vertexcolor.ps" />
     <None Include="shaders\vertexcolor.vs" />
+    <None Include="water.ps" />
+    <None Include="water.vs" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="musica\libzplay.lib" />
