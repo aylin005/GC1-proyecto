@@ -121,6 +121,7 @@ private:
 	Billboard* Pine2;
 	Billboard* Arbusto1;
 	Billboard* Arbusto2;
+	Billboard* orangetree;
 
 	//Cajas
 	BoundingBoxRenderer* box;
