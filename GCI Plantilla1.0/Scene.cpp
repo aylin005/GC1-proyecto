@@ -379,11 +379,11 @@ bool Scene::Render() {
 	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
 
 	//Area de hongos gigantes
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 1.22, 5.8, -124.96,  2,2,2);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 1.22, 5.8, -143.96,  2,2,2);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 29.285208, 5.8, -109.304688,  1,1,1);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 29.285208, 5.8, -114.304688,  1,1,1);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
@@ -391,7 +391,7 @@ bool Scene::Render() {
 	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -94.64, 2.5,2.5,2.5,   0,3.14,0);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -120.64, 2.5,2.5,2.5,   0,3.14,0);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
@@ -435,10 +435,10 @@ bool Scene::Render() {
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
 	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
-	SakuraTree->Render(viewMatrix, projectionMatrix, 18.0f, 2.7, 90.0f, 2.5, 2.5, 2.5);
-	SakuraTree->Render(viewMatrix, projectionMatrix, 40.0f, 2.7, 81.0f, 2.5, 2.5, 2.5);
-	SakuraTree->Render(viewMatrix, projectionMatrix, 46.0f, 2.7, 53.0f, 2.5, 2.5, 2.5);
-	Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 34.0f, 2.7, 90.0f, 2.5, 2.5, 2.5);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 54.0f, 2.7,59.0f, 2.5, 2.5, 2.5);
+	SakuraTree->Render(viewMatrix, projectionMatrix, 32.0f, 2.7, 26.0f, 2.5, 2.5, 2.5);
+	Columpio->Render(viewMatrix, projectionMatrix, 24.0f, 2.7, 58.0f, 2.5, 2.5, 2.5);
 	Arbol->Render(viewMatrix, projectionMatrix, -37.0f, 3.5, 94.0f, 3.5, 3.5, 3.5);
 	Ventana->Render(viewMatrix, projectionMatrix, -35.2f, 4.5, 94.9f, 1.5, 1.5, 1.5, 0, 2.5708, -0.15);
 	Ventana->Render(viewMatrix, projectionMatrix, -37.8f, 4.5, 92.3f, 1.5, 1.5, 1.5, 0, 1.8708, 0.15);
@@ -602,19 +602,19 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	OpenGL->MatrixTranslation(matrixesc8, -1.5f, Terreno->Superficie(-10.0f, 10.0f), -82.0f);
 
 	float* matrixSakura = Sakura->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixSakura, 15.5f, Terreno->Superficie(-10.0f, 10.0f), 86.5f);
+	OpenGL->MatrixTranslation(matrixSakura, 31.5f, Terreno->Superficie(-10.0f, 10.0f), 86.5f);
 
 	float* matrixSakura1 = Sakura1->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixSakura1, 37.5f, Terreno->Superficie(-10.0f, 10.0f), 77.5f);
+	OpenGL->MatrixTranslation(matrixSakura1, 51.5f, Terreno->Superficie(-10.0f, 10.0f), 55.5f);
 
 	float* matrixSakura2 = Sakura2->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixSakura2, 43.5f, Terreno->Superficie(-10.0f, 10.0f), 49.5f);
+	OpenGL->MatrixTranslation(matrixSakura2, 29.5f, Terreno->Superficie(-10.0f, 10.0f), 22.5f);
 
 	float* matrixSakura3 = Sakura3->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixSakura3, 24.0f, Terreno->Superficie(-10.0f, 10.0f), 64.0f);
+	OpenGL->MatrixTranslation(matrixSakura3, 22.0f, Terreno->Superficie(-10.0f, 10.0f), 56.0f);
 
 	float* matrixSakuraC = SakuraC->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixSakuraC, 21.6f, Terreno->Superficie(-10.0f, 10.0f), 65.6f);
+	OpenGL->MatrixTranslation(matrixSakuraC, 19.6f, Terreno->Superficie(-8.0f, 10.0f), 57.6f);
 
 	float* matrixCasa = CasaArbol->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixCasa, -39.4, Terreno->Superficie(-10.0f, 10.0f), 91.5f);
@@ -623,7 +623,7 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	OpenGL->MatrixTranslation(matrixAreaCasa, -44.4f, Terreno->Superficie(-10.0f, 10.0f), 83.5f);
 
 	float* matrixAreaColumpio = AreaColumpio->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixAreaColumpio, 17.4f, Terreno->Superficie(-10.0f, 10.0f), 55.5f);
+	OpenGL->MatrixTranslation(matrixAreaColumpio, 14.4f, Terreno->Superficie(-10.0f, 10.0f), 49.5f);
 
 	float* matrixAreaPuente = AreaPuente->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixAreaPuente, -6.4f, Terreno->Superficie(-10.0f, 10.0f), -60.5f);
