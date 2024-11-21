@@ -334,7 +334,7 @@ bool Scene::Initialize() {
 	Pine1->SetShader(ShaderBillboard);
 
 	orangetree = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/orangetree.png");
-	orangetree->Initialize(7.0f, 9.0f);
+	orangetree->Initialize(7.0f, 7.0f);
 	orangetree->SetShader(ShaderBillboard);
 
 	Pine2 = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/pine2.png");
@@ -352,7 +352,9 @@ bool Scene::Initialize() {
 	return result;
 }
 
-
+float waterHeight = 0;
+bool goingUp = true;
+bool goingDown = false;
 bool Scene::Render() {
 	bool result = true;
 
@@ -487,7 +489,28 @@ bool Scene::Render() {
 		Star->RenderWithCB(viewMatrix, projectionMatrix, true, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
 	}
 
-	Water->Render(viewMatrix, projectionMatrix, 11, 2, -67.7, 14, 0, 10, 0, 3.1416 / 2, 0);
+	if (goingUp)
+	{
+		if (waterHeight <= 2.5)
+			waterHeight += 0.01;
+		else
+		{
+			goingDown = true;
+			goingUp = false;
+		}
+	}
+	else
+	{
+		if (waterHeight >= 1.8)
+			waterHeight -= 0.01;
+		else
+		{
+			goingDown = false;
+			goingUp = true;
+		}
+	}
+		
+	Water->Render(viewMatrix, projectionMatrix, 11, waterHeight, -67.7, 14, 0, 10, 0, 3.1416 / 2, 0);
 
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
