@@ -387,11 +387,31 @@ bool Scene::Render() {
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, -9.285208, 5.8, -114.304688, 1, 1, 1);
+	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 59.285208, 5.8, -114.304688, 1, 1, 1);
+	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
 	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 64.64, Terreno->Superficie(9.64, -108), -134, 2, 2, 2, 0, 3.14, 0);
+	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -120.64, 2.5,2.5,2.5,   0,3.14,0);
+	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 39.77, Terreno->Superficie(14.77, -94.64), -128.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
+	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 56.77, 4.8, -148.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
