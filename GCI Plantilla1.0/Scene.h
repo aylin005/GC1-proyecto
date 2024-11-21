@@ -34,8 +34,9 @@ const float SCREEN_NEAR = 0.1f;
 const float SPEED_AXIS_Y = 0.05f;
 const float SPEED_AXIS_X = 0.05f;
 const float SPEED_CAMERA = 0.01f;
-const float InitialPosition[3] = { 0.0f, 11.0f, -10.0f };
-const float InitialRotation[3] = { 0.0f, 0.0f, 0.0f };
+//const float InitialPosition[3] = { 0.0f, 11.0f, -10.0f };
+const float InitialPosition[3] = { -55.3f, 11.0f, 132.0f };
+const float InitialRotation[3] = { 0.0f, 90, 0.0f };
 
 
 using std::vector;
@@ -118,6 +119,7 @@ private:
 	Billboard* Tree;
 	Billboard* Pine1;
 	Billboard* Pine2;
+	Billboard* Arbusto1;
 
 	//Cajas
 	BoundingBoxRenderer* box;

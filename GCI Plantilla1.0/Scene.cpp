@@ -290,6 +290,10 @@ bool Scene::Initialize() {
 	Pine2->Initialize(5.0f, 7.0f);
 	Pine2->SetShader(ShaderBillboard);
 
+	Arbusto1 = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/arbusto1.png");
+	Arbusto1->Initialize(2.0f, 1.2f);
+	Arbusto1->SetShader(ShaderBillboard);
+
 	return result;
 }
 
@@ -413,11 +417,17 @@ bool Scene::Render() {
 	SakuraTree->Render(viewMatrix, projectionMatrix, 40.0f, 2.7, 81.0f, 2.5, 2.5, 2.5);
 	SakuraTree->Render(viewMatrix, projectionMatrix, 46.0f, 2.7, 53.0f, 2.5, 2.5, 2.5);
 	Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
-	Arbol->Render(viewMatrix, projectionMatrix, -24.0f, 3.5, 35.0f, 3.5, 3.5, 3.5);
+	Arbol->Render(viewMatrix, projectionMatrix, -37.0f, 3.5, 94.0f, 3.5, 3.5, 3.5);
 	Ventana->Render(viewMatrix, projectionMatrix, -22.2f, 4.5, 35.9f, 1.5, 1.5, 1.5, 0, 2.5708, -0.15);
 	Ventana->Render(viewMatrix, projectionMatrix, -24.8f, 4.5, 33.3f, 1.5, 1.5, 1.5, 0, 1.8708, 0.15);
 
 	//Billboards
+	Arbusto1->Render(viewMatrix, projectionMatrix, -2, Terreno->Superficie(0, 0),18, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto1->Render(viewMatrix, projectionMatrix, 9, Terreno->Superficie(0, 0), 18, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto1->Render(viewMatrix, projectionMatrix, -9.55, Terreno->Superficie(0, 0), 135.41, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto1->Render(viewMatrix, projectionMatrix, -41.56, Terreno->Superficie(0, 0), 143.64, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto1->Render(viewMatrix, projectionMatrix, -49.48, Terreno->Superficie(0, 0), 119, DeltaPosition->X, DeltaPosition->Z);
+	
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -55.91f, Terreno->Superficie(-55.91f, -48.7f), -48.7f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -66.94f, Terreno->Superficie(-66.94f, -54.6f), -54.6f, DeltaPosition->X, DeltaPosition->Z);
@@ -576,10 +586,10 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	OpenGL->MatrixTranslation(matrixSakuraC, 21.6f, Terreno->Superficie(-10.0f, 10.0f), 65.6f);
 
 	float* matrixCasa = CasaArbol->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixCasa, -26.4f, Terreno->Superficie(-10.0f, 10.0f), 32.5f);
+	OpenGL->MatrixTranslation(matrixCasa, -39.4, Terreno->Superficie(-10.0f, 10.0f), 91.5f);
 
 	float* matrixAreaCasa = AreaCasa->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixAreaCasa, -31.4f, Terreno->Superficie(-10.0f, 10.0f), 24.5f);
+	OpenGL->MatrixTranslation(matrixAreaCasa, -44.4f, Terreno->Superficie(-10.0f, 10.0f), 83.5f);
 
 	float* matrixAreaColumpio = AreaColumpio->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixAreaColumpio, 17.4f, Terreno->Superficie(-10.0f, 10.0f), 55.5f);
@@ -721,16 +731,16 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	return result;
 }
 
-// Variables para la posición de la estrella y la cámara
-float starX = 0.0f, starY = 0.0f; // Posición de la estrella en el plano
-float cameraRadius = 10.0f; // Radio de la órbita de la cámara
-float cameraAngleX = 0.0f;  // Ángulo de rotación en el plano horizontal (yaw)
-float cameraAngleY = 0.0f;  // Ángulo de rotación en el plano vertical (pitch)
-const float minPitch = -1.5f, maxPitch = 1.5f; // Límites para el pitch
-
-// Velocidades
-const float moveSpeed = 0.6f;       // Velocidad de movimiento de la estrella
-const float rotationSpeed = 0.6f; // Velocidad de rotación de la cámara
+//// Variables para la posición de la estrella y la cámara
+//float starX = 0.0f, starY = 0.0f; // Posición de la estrella en el plano
+//float cameraRadius = 10.0f; // Radio de la órbita de la cámara
+//float cameraAngleX = 0.0f;  // Ángulo de rotación en el plano horizontal (yaw)
+//float cameraAngleY = 0.0f;  // Ángulo de rotación en el plano vertical (pitch)
+//const float minPitch = -1.5f, maxPitch = 1.5f; // Límites para el pitch
+//
+//// Velocidades
+//const float moveSpeed = 0.6f;       // Velocidad de movimiento de la estrella
+//const float rotationSpeed = 0.6f; // Velocidad de rotación de la cámara
 
 bool Scene::ManageCommands() {
 	bool result = true;
@@ -743,14 +753,6 @@ bool Scene::ManageCommands() {
 		is3rdPerson = !is3rdPerson; // Cambiar entre primera y tercera persona
 	}
 
-	//if (is3rdPerson) {
-	//	// Movimiento de la estrella con w, a, s, d
-	//	if (input->GetKey(KeyCode.A)) Star->setPosition(Star->getPositionX(), Star->getPositionY() + moveSpeed, Star->getPositionZ());
-	//	if (input->GetKey(KeyCode.D)) Star->setPosition(Star->getPositionX(), Star->getPositionY() - moveSpeed, Star->getPositionZ());
-	//	if (input->GetKey(KeyCode.W)) Star->setPosition(Star->getPositionX() - moveSpeed, Star->getPositionY(), Star->getPositionZ());
-	//	if (input->GetKey(KeyCode.S)) Star->setPosition(Star->getPositionX() + moveSpeed, Star->getPositionY(), Star->getPositionZ());
-	//}
-	//else {
 		float vr[2]{ 0,0 };
 		float radians = DeltaRotation->Y * 0.0174532925f;
 
