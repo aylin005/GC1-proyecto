@@ -294,6 +294,10 @@ bool Scene::Initialize() {
 	Arbusto1->Initialize(2.0f, 1.2f);
 	Arbusto1->SetShader(ShaderBillboard);
 
+	Arbusto2 = new Billboard(OpenGL, handlerWindow, LoaderTexture, "recursos/Billboards/arbusto2.png");
+	Arbusto2->Initialize(2.6f, 2.0f);
+	Arbusto2->SetShader(ShaderBillboard);
+
 	return result;
 }
 
@@ -405,7 +409,7 @@ bool Scene::Render() {
 		starRotation = 0.0;
 	//if(starFloating)
 	if (!is3rdPerson) {
-		Star->RenderWithCB(viewMatrix, projectionMatrix, true, 25, 4, -20, 2, 2, 2, 0, starRotation, 0);
+		Star->RenderWithCB(viewMatrix, projectionMatrix, true, -20, 4, -19.43, 2, 2, 2, 0, starRotation, 0);
 	}
 	else {
 		Star->RenderWithCB(viewMatrix, projectionMatrix, true, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
@@ -418,8 +422,8 @@ bool Scene::Render() {
 	SakuraTree->Render(viewMatrix, projectionMatrix, 46.0f, 2.7, 53.0f, 2.5, 2.5, 2.5);
 	Columpio->Render(viewMatrix, projectionMatrix, 26.0f, 2.7, 66.0f, 2.5, 2.5, 2.5);
 	Arbol->Render(viewMatrix, projectionMatrix, -37.0f, 3.5, 94.0f, 3.5, 3.5, 3.5);
-	Ventana->Render(viewMatrix, projectionMatrix, -22.2f, 4.5, 35.9f, 1.5, 1.5, 1.5, 0, 2.5708, -0.15);
-	Ventana->Render(viewMatrix, projectionMatrix, -24.8f, 4.5, 33.3f, 1.5, 1.5, 1.5, 0, 1.8708, 0.15);
+	Ventana->Render(viewMatrix, projectionMatrix, -35.2f, 4.5, 94.9f, 1.5, 1.5, 1.5, 0, 2.5708, -0.15);
+	Ventana->Render(viewMatrix, projectionMatrix, -37.8f, 4.5, 92.3f, 1.5, 1.5, 1.5, 0, 1.8708, 0.15);
 
 	//Billboards
 	Arbusto1->Render(viewMatrix, projectionMatrix, -2, Terreno->Superficie(0, 0),18, DeltaPosition->X, DeltaPosition->Z);
@@ -427,6 +431,8 @@ bool Scene::Render() {
 	Arbusto1->Render(viewMatrix, projectionMatrix, -9.55, Terreno->Superficie(0, 0), 135.41, DeltaPosition->X, DeltaPosition->Z);
 	Arbusto1->Render(viewMatrix, projectionMatrix, -41.56, Terreno->Superficie(0, 0), 143.64, DeltaPosition->X, DeltaPosition->Z);
 	Arbusto1->Render(viewMatrix, projectionMatrix, -49.48, Terreno->Superficie(0, 0), 119, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto2->Render(viewMatrix, projectionMatrix, -12.66, Terreno->Superficie(0, 0), 116.35, DeltaPosition->X, DeltaPosition->Z);
+	Arbusto2->Render(viewMatrix, projectionMatrix, 3.76, Terreno->Superficie(0, 0), 128.5, DeltaPosition->X, DeltaPosition->Z);
 	
 	Pine1->Render(viewMatrix, projectionMatrix, -40.19f, Terreno->Superficie(-40.19f, -50.91f), -50.91f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -55.91f, Terreno->Superficie(-55.91f, -48.7f), -48.7f, DeltaPosition->X, DeltaPosition->Z);
@@ -439,6 +445,9 @@ bool Scene::Render() {
 	Pine1->Render(viewMatrix, projectionMatrix, 44.53f, Terreno->Superficie(44.53f, -89.3f), -89.3f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -14.89f, Terreno->Superficie(-14.89f, -84.12f), -84.12f, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -33.57f, Terreno->Superficie(-33.57f, -93.94f), -93.94f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -35.42f, Terreno->Superficie(-33.57f, -93.94f), 120.27f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -16.5f, Terreno->Superficie(-33.57f, -93.94f), 137.58f, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -31.70f, Terreno->Superficie(-33.57f, -93.94f), 140.91f, DeltaPosition->X, DeltaPosition->Z);
 
 
 	Pine2->Render(viewMatrix, projectionMatrix, 207.5, Terreno->Superficie(207.5, -61.19), -61.19, DeltaPosition->X, DeltaPosition->Z);
