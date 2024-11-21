@@ -36,8 +36,8 @@ void ReproductorReproduce();
 void ReproductorInicializaYReproduce();
 void ReproductorCambiarCancionYReproduce(int);
 void ReproductorInicializaYReproduce() {
-	Cancion[0].Nombre = "Inicio 1";
-	Cancion[0].Dir = "recursos/Kirby.mp3";
+	Cancion[0].Nombre = "Musica fondo";
+	Cancion[0].Dir = "musica/avalon-mystically-fantasy-chill-out-music-7487.mp3";
 	Cancion[1].Nombre = "Inicio 1";
 	Cancion[1].Dir = "recursos/GuildHall.mp3";
 	Cancion[2].Nombre = "Inicio 2";
@@ -54,7 +54,7 @@ void ReproductorInicializaYReproduce() {
 	else
 		player->OpenFile(Cancion[indexCancion].Dir.c_str(), sfAutodetect);
 	player->SetMasterVolume(LVolume, RVolume);// Sonido tipo estereo Left and Right - Volumen de 0 - 100
-	//player->Play();
+	player->Play();
 }
 
 void ReproductorCambiarCancionYReproduce(int NumeroCancionAeproducir) {
@@ -418,7 +418,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 	case WM_CREATE:
 	{
 		SetTimer(hwnd, Timer, Tick, NULL);
-		//ReproductorInicializaYReproduce();
+		ReproductorInicializaYReproduce();
 		return 0;
 	}
 	case WM_TIMER:
