@@ -136,7 +136,7 @@ bool Scene::Initialize() {
 	Cabana6->SetShader(ShaderBox);
 
 	puentebox = new BoundingBoxRenderer(OpenGL,
-		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 12.0f,5.0f ,30.0f });
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 12.0f,8.0f ,30.0f });
 	puentebox->SetShader(ShaderBox);
 
 	valla1 = new BoundingBoxRenderer(OpenGL,
@@ -528,7 +528,7 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	OpenGL->MatrixTranslation(matrixCabana6, -53.5, Terreno->Superficie(-10.0f, 10.0f), -131.0f);
 
 	float* matrixPuente = puentebox->GetWorldMatrix();
-	OpenGL->MatrixTranslation(matrixPuente, -2.0f, Terreno->Superficie(-10.0f, 10.0f), -80.0f);
+	OpenGL->MatrixTranslation(matrixPuente, -2.0f, Terreno->Superficie(-2.0f, -80.0f)-3, -80.0f);
 
 	float* matrixvalla1 = valla1->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixvalla1, 8.5f, 8.5f, -80.0f);
@@ -682,9 +682,38 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 		is3rdPerson = true;
 	}
 		
-
-	
-
+	/////SUBIR PUENTE///////
+	if (esc1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		OutputDebugStringA("Colision esc1");
+	if (esc2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		OutputDebugStringA("Colision esc2");
+	if (esc3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->Y += 2.0f;
+		OutputDebugStringA("Colision esc3");
+	}
+	if (puentebox->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->Y = 10.8f;
+		OutputDebugStringA("Colision puentebox");
+	}
+	if (esc4->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->Y += 2.0f;
+		OutputDebugStringA("Colision esc4");
+	}
+	if (esc5->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		OutputDebugStringA("Colision esc5");
+	if (esc6->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		OutputDebugStringA("Colision esc6");
+	if (esc7->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		OutputDebugStringA("Colision esc7");
+	if (esc8->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+	{
+		DeltaPosition->Y += 2.0f;
+		OutputDebugStringA("Colision esc8");
+	}
+		
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Transformaciones de modelos
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
