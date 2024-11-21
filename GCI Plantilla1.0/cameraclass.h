@@ -10,6 +10,8 @@ private:
 	{ 
 		float x, y, z;
 	};
+	float distanceFromPlayer = 50;
+	float angleAroundPlayer = 0;
 	void MatrixRotationYawPitchRoll(float*, float, float, float);
 	void TransformCoord(VectorType&, float*);
 	void BuildViewMatrix(VectorType, VectorType, VectorType);
@@ -28,6 +30,8 @@ public:
 
 	void Render();
 	void GetViewMatrix(float*);
+
+	void calculateZoom();
 };
 
 #endif

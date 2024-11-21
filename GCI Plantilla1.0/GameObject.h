@@ -26,6 +26,24 @@ private:
 	BoundingBox::GLFLOAT3 points[8];
 public:
 	float x, y, z, sx, sy, sz, rx, ry, rz;
+	void setPosition(float pX, float pY, float pZ)
+	{
+		x = pX;
+		y = pY;
+		z = pZ;
+	}
+	float getPositionX()
+	{
+		return x;
+	}
+	float getPositionY()
+	{
+		return y;
+	}
+	float getPositionZ()
+	{
+		return z;
+	}
 	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef);
 	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath, string normalMappingPath);
 	GameObject(OpenGLClass* OpenGL, HWND hwnd, TextureClass* LoaderTextureRef, const char* objPath, string texturePath);

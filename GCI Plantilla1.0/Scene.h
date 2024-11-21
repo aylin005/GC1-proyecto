@@ -24,6 +24,7 @@
 #include "BoundingBoxRenderer.h"
 #include "vector"
 #include <string>
+#include <algorithm>
 
 // GLOBALS //
 const bool FULL_SCREEN = false;

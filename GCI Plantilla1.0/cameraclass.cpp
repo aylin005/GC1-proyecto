@@ -93,6 +93,11 @@ void CameraClass::Render()
 	return;
 }
 
+void calculateZoom()
+{
+
+}
+
 void CameraClass::MatrixRotationYawPitchRoll(float* matrix, float yaw, float pitch, float roll)
 {
 	float cYaw, cPitch, cRoll, sYaw, sPitch, sRoll;

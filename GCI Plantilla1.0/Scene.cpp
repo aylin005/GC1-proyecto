@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <algorithm>
 
 bool messageShown = false;
 bool messageShown2 = false;
@@ -6,6 +7,13 @@ bool messageShown3 = false;
 bool messageShown4 = false;
 bool messageShown5 = false;
 bool messageShown6 = false;
+
+template<typename T>
+const T& clamp(const T& value, const T& low, const T& high) {
+	if (value < low) return low;
+	if (value > high) return high;
+	return value;
+}
 
 Scene::Scene(OpenGLClass* OpenGLObject, HWND hwnd) {
 	handlerWindow = hwnd;
@@ -251,15 +259,15 @@ bool Scene::Initialize() {
 		"recursos/Cabin2/cabin2.obj", "recursos/Cabin2/WoodTexture.jpeg");
 
 	setModel(Honguito1, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos2/Hongito1/hongito1.obj", "recursos/hongitos/Hongito1/Mushroom_1_BaseColor.png");
+		"recursos/hongitos2/Hongito1/hongito1.obj", "recursos/hongitos2/Hongito1/Mushroom_1_BaseColor.png");
 	Collisions.push_back(Honguito1);
 
 	setModel(Honguito2, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos2/Hongito2/hongito2.obj", "recursos/hongitos/Hongito2/Mushroom_2_BaseColor.png");
+		"recursos/hongitos2/Hongito2/hongito2.obj", "recursos/hongitos2/Hongito2/Mushroom_2_BaseColor.png");
 	Collisions.push_back(Honguito2);
 
 	setModel(Honguito3, ShaderModel, OpenGL, handlerWindow, LoaderTexture,
-		"recursos/hongitos2/Hongito3/hongito3.obj", "recursos/hongitos/Hongito3/Mushroom_3_BaseColor.png");
+		"recursos/hongitos2/Hongito3/hongito3.obj", "recursos/hongitos2/Hongito3/Mushroom_3_BaseColor.png");
 	Collisions.push_back(Honguito3);
 
 	//Skydome
@@ -297,8 +305,30 @@ bool Scene::Render() {
 	float projectionMatrix[16];
 
 	// Actualiza la posicion y rotacion de la camara
-	Camera->SetPosition(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z);
-	Camera->SetRotation(DeltaRotation->X, DeltaRotation->Y, DeltaRotation->Z);
+	if (is3rdPerson) {
+		float radius = 18.0f; // Distancia de la cámara al vehículo
+		float offsetY = 7.0f; // Altura de la cámara sobre el vehículo
+
+		float radiansYaw = DeltaRotation->Y * 0.0174532925f;
+		float radiansPitch = DeltaRotation->X * 0.0174532925f;
+
+		// Calcula la posición en coordenadas esféricas
+		float camX = DeltaPosition->X - radius * cosf(radiansPitch) * sinf(radiansYaw);
+		float camY = DeltaPosition->Y + offsetY - radius * sinf(radiansPitch);
+		float camZ = DeltaPosition->Z - radius * cosf(radiansPitch) * cosf(radiansYaw);
+
+		Camera->SetPosition(camX, camY, camZ);
+		Camera->SetRotation(DeltaRotation->X, DeltaRotation->Y, 0.0f);
+		//// Configura la cámara en tercera persona
+		//Camera->SetPosition(DeltaPosition->X + 10, DeltaPosition->Y + 5, DeltaPosition->Z);
+		//Camera->SetRotation(DeltaRotation->X, DeltaRotation->Y, 0.0f);
+	}
+	else {
+		// Configura la cámara en primera persona (tu código actual)
+		Camera->SetPosition(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z);
+		Camera->SetRotation(DeltaRotation->X, DeltaRotation->Y, DeltaRotation->Z);
+	}
+	
 	// Genera la matriz de vista a partir de la posicion de la camara.
 	Camera->Render();
 
@@ -370,9 +400,12 @@ bool Scene::Render() {
 	else
 		starRotation = 0.0;
 	//if(starFloating)
-
-	Star->RenderWithCB(viewMatrix, projectionMatrix, true, 25, 4, -20, 2,2,2, 0, starRotation, 0);
-
+	if (!is3rdPerson) {
+		Star->RenderWithCB(viewMatrix, projectionMatrix, true, 25, 4, -20, 2, 2, 2, 0, starRotation, 0);
+	}
+	else {
+		Star->RenderWithCB(viewMatrix, projectionMatrix, true, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
+	}
 	Arco->Render(viewMatrix, projectionMatrix, 3.8, 2.7, 10.9, 2.5, 2.5, 2.5);
 	Puente->Render(viewMatrix, projectionMatrix, -22.0f, 3.2, -97.0f, 2, 2, 2.5);
 	Cabin->Render(viewMatrix, projectionMatrix, -50.7f, 3.2, -130.0f, 2.5, 2.5, 2.5, 0, 3.1416, 0);
@@ -646,6 +679,7 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	{
 		//DeltaPosition->Y += 3;
 		//Llamar función 3era persona
+		is3rdPerson = true;
 	}
 		
 
@@ -658,6 +692,17 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	return result;
 }
 
+// Variables para la posición de la estrella y la cámara
+float starX = 0.0f, starY = 0.0f; // Posición de la estrella en el plano
+float cameraRadius = 10.0f; // Radio de la órbita de la cámara
+float cameraAngleX = 0.0f;  // Ángulo de rotación en el plano horizontal (yaw)
+float cameraAngleY = 0.0f;  // Ángulo de rotación en el plano vertical (pitch)
+const float minPitch = -1.5f, maxPitch = 1.5f; // Límites para el pitch
+
+// Velocidades
+const float moveSpeed = 0.6f;       // Velocidad de movimiento de la estrella
+const float rotationSpeed = 0.6f; // Velocidad de rotación de la cámara
+
 bool Scene::ManageCommands() {
 	bool result = true;
 
@@ -665,56 +710,77 @@ bool Scene::ManageCommands() {
 	LasDeltaPosition->Y = DeltaPosition->Y;
 	LasDeltaPosition->Z = DeltaPosition->Z;
 
-	float vr[2]{ 0,0 };
-	float radians = DeltaRotation->Y * 0.0174532925f;
-
-	if((input->GetKey(KeyCode.W) || input->GetKey(KeyCode.Up))) {
-		vr[0] += sinf(radians)*speed * deltaTime;
-		vr[1] += cosf(radians) * speed * deltaTime;
-	}
-	if ((input->GetKey(KeyCode.S) || input->GetKey(KeyCode.Down))) {
-		vr[0] -= sinf(radians) * speed * deltaTime;
-		vr[1] -= cosf(radians) * speed * deltaTime;
-	}
-	if ((input->GetKey(KeyCode.A) || input->GetKey(KeyCode.Left))) {
-		vr[0] -= sinf(radians + (M_PI * 0.5f)) * speed * deltaTime;
-		vr[1] -= cosf(radians + (M_PI * 0.5f)) * speed * deltaTime;
-	}
-	if ((input->GetKey(KeyCode.D) || input->GetKey(KeyCode.Right))) {
-		vr[0] += sinf(radians + (M_PI * 0.5f)) * speed * deltaTime;
-		vr[1] += cosf(radians + (M_PI * 0.5f)) * speed * deltaTime;
+	if (input->GetKeyDown(KeyCode.Backspace)) {
+		is3rdPerson = !is3rdPerson; // Cambiar entre primera y tercera persona
 	}
 
-	if (input->GetRightAxisY() || input->GetRightAxisX()) {
-		float angleX = input->GetRightAxisY() * speedAxisX * deltaTime;
-		float angleY = input->GetRightAxisX() * speedAxisY * deltaTime;
-		DeltaRotation->X -= angleX;
-		DeltaRotation->Y += angleY;
-	}
+	//if (is3rdPerson) {
+	//	// Movimiento de la estrella con w, a, s, d
+	//	if (input->GetKey(KeyCode.A)) Star->setPosition(Star->getPositionX(), Star->getPositionY() + moveSpeed, Star->getPositionZ());
+	//	if (input->GetKey(KeyCode.D)) Star->setPosition(Star->getPositionX(), Star->getPositionY() - moveSpeed, Star->getPositionZ());
+	//	if (input->GetKey(KeyCode.W)) Star->setPosition(Star->getPositionX() - moveSpeed, Star->getPositionY(), Star->getPositionZ());
+	//	if (input->GetKey(KeyCode.S)) Star->setPosition(Star->getPositionX() + moveSpeed, Star->getPositionY(), Star->getPositionZ());
+	//}
+	//else {
+		float vr[2]{ 0,0 };
+		float radians = DeltaRotation->Y * 0.0174532925f;
 
-	if (input->GetKey(KeyCode.I)) {
-		DeltaRotation->X -= speedAxisX * deltaTime;
-	}
-	if (input->GetKey(KeyCode.K)) {
-		DeltaRotation->X += speedAxisX * deltaTime;
-	}
-	if (input->GetKey(KeyCode.J)) {
-		DeltaRotation->Y -= speedAxisY * deltaTime;
-	}
-	if (input->GetKey(KeyCode.L)) {
-		DeltaRotation->Y += speedAxisY * deltaTime;
-	}
+		if ((input->GetKey(KeyCode.W) || input->GetKey(KeyCode.Up))) {
+			vr[0] += sinf(radians) * speed * deltaTime;
+			vr[1] += cosf(radians) * speed * deltaTime;
+		}
+		if ((input->GetKey(KeyCode.S) || input->GetKey(KeyCode.Down))) {
+			vr[0] -= sinf(radians) * speed * deltaTime;
+			vr[1] -= cosf(radians) * speed * deltaTime;
+		}
+		if ((input->GetKey(KeyCode.A) || input->GetKey(KeyCode.Left))) {
+			vr[0] -= sinf(radians + (M_PI * 0.5f)) * speed * deltaTime;
+			vr[1] -= cosf(radians + (M_PI * 0.5f)) * speed * deltaTime;
+		}
+		if ((input->GetKey(KeyCode.D) || input->GetKey(KeyCode.Right))) {
+			vr[0] += sinf(radians + (M_PI * 0.5f)) * speed * deltaTime;
+			vr[1] += cosf(radians + (M_PI * 0.5f)) * speed * deltaTime;
+		}
+
+		if (input->GetRightAxisY() || input->GetRightAxisX()) {
+			float angleX = input->GetRightAxisY() * speedAxisX * deltaTime;
+			float angleY = input->GetRightAxisX() * speedAxisY * deltaTime;
+			DeltaRotation->X -= angleX;
+			DeltaRotation->Y += angleY;
+		}
+
+		if (input->GetKey(KeyCode.I)) {
+			DeltaRotation->X -= speedAxisX * deltaTime;
+		}
+		if (input->GetKey(KeyCode.K)) {
+			DeltaRotation->X += speedAxisX * deltaTime;
+		}
+		if (input->GetKey(KeyCode.J)) {
+			DeltaRotation->Y -= speedAxisY * deltaTime;
+		}
+		if (input->GetKey(KeyCode.L)) {
+			DeltaRotation->Y += speedAxisY * deltaTime;
+		}
+
+		if (input->GetKey(KeyCode.P))
+		{
+			string str = "Pos: " + to_string(DeltaPosition->X) + ", " + to_string(DeltaPosition->Y) + ", " + to_string(DeltaPosition->Z) + "\n";
+			OutputDebugStringA(str.c_str());
+		}
+
+		DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2;
+
+		DeltaPosition->X += vr[0];
+		DeltaPosition->Z += vr[1];
+
+		// Limitar el rango del pitch (rotación vertical)
+		if (DeltaRotation->X > 89.0f) {
+			DeltaRotation->X = 89.0f;
+		}
+		if (DeltaRotation->X < -89.0f) {
+			DeltaRotation->X = -89.0f;
+		}
 	
-	if (input->GetKey(KeyCode.P))
-	{
-		string str = "Pos: " + to_string(DeltaPosition->X) + ", " + to_string(DeltaPosition->Y) + ", " + to_string(DeltaPosition->Z) + "\n";
-		OutputDebugStringA(str.c_str());
-	}
-
-	DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2;
-
-	DeltaPosition->X += vr[0];
-	DeltaPosition->Z += vr[1];
 
 	return result;
 }
@@ -778,3 +844,4 @@ void Scene::returnLastPosition()
 	DeltaPosition->Y = LasDeltaPosition->Y;
 	DeltaPosition->Z = LasDeltaPosition->Z;
 }
+
