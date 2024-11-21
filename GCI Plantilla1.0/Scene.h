@@ -153,6 +153,10 @@ private:
 	BoundingBoxRenderer* AreaArco;
 	BoundingBoxRenderer* AreaCabin;
 	BoundingBoxRenderer* AreaHongos;
+	BoundingBoxRenderer* Lim1;
+	BoundingBoxRenderer* Lim2;
+	BoundingBoxRenderer* Lim3;
+	BoundingBoxRenderer* Lim4;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;

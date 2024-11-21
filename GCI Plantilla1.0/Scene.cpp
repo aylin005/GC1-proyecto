@@ -227,6 +227,22 @@ bool Scene::Initialize() {
 		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,10.0f ,20.0f });
 	AreaCabin->SetShader(ShaderBox);
 
+	Lim1 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f, 300.0f ,350.0f });
+	Lim1->SetShader(ShaderBox);
+
+	Lim2 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f, 300.0f ,350.0f });
+	Lim2->SetShader(ShaderBox);
+
+	Lim3 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 250.0f, 300.0f , 20.0f });
+	Lim3->SetShader(ShaderBox);
+
+	Lim4 = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 250.0f, 300.0f , 20.0f });
+	Lim4->SetShader(ShaderBox);
+
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
 
@@ -505,6 +521,10 @@ bool Scene::Render() {
 	AreaArco->Draw(viewMatrix, projectionMatrix);
 	AreaHongos->Draw(viewMatrix, projectionMatrix);
 	AreaCabin->Draw(viewMatrix, projectionMatrix);
+	Lim1->Draw(viewMatrix, projectionMatrix);
+	Lim2->Draw(viewMatrix, projectionMatrix);
+	Lim3->Draw(viewMatrix, projectionMatrix);
+	Lim4->Draw(viewMatrix, projectionMatrix);
 	
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
@@ -615,6 +635,18 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	float* matrixAreaCabin = AreaCabin->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixAreaCabin, -58.4f, Terreno->Superficie(-10.0f, 10.0f), -145.5f);
 
+	float* matrixLim1 = Lim1->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixLim1, 60.4f, 0.0f, -200.0f);
+
+	float* matrixLim2 = Lim2->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixLim2, -90.4f, 0.0f, -200.0f);
+
+	float* matrixLim3 = Lim3->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixLim3, -80.4f, 0.0f, 150.0f);
+
+	float* matrixLim4 = Lim4->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixLim4, -80.4f, 0.0f, -185.0f);
+
 	//Colision
 	for (int i = 0; i < Collisions.size(); i++)
 	{
@@ -658,39 +690,51 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	if (CasaArbol->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
+	if (Lim1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Lim2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Lim3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (Lim4->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
 	if (AreaCasa->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown)
 	{
-		MessageBox(NULL, L"¡Está en la Casa del Arbol!", L"Casa del Arbol", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Está en la Casa del Arbol!", L"Casa del Arbol 1/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown = true;
 	}
 
 	if (AreaColumpio->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown2)
 	{
-		MessageBox(NULL, L"¡Está en el columpio!", L"Bosque de Sakura", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Está en el columpio!", L"Bosque de Sakura 2/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown2 = true;
 	}
 
 	if (AreaPuente->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown3)
 	{
-		MessageBox(NULL, L"¡Está en el puente!", L"Puente del río", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Está en el puente!", L"Puente del río 4/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown3 = true;
 	}
 
 	if (AreaArco->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown4)
 	{
-		MessageBox(NULL, L"¡Está en el arco!", L"Arco de piedra", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Está en el arco!", L"Arco de piedra 3/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown4 = true;
 	}
 
 	if (AreaHongos->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown5)
 	{
-		MessageBox(NULL, L"¡Está en el area de los hongos!", L"Bioma de Hongos", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Está en el area de los hongos!", L"Bioma de Hongos 5/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown5 = true;
 	}
 
 	if (AreaCabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown6)
 	{
-		MessageBox(NULL, L"¡Se encuentra en la cabaña!", L"La Cabaña", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"¡Se encuentra en la cabaña!", L"La Cabaña 6/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown6 = true;
 	}
 
@@ -732,6 +776,12 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 		DeltaPosition->Y += 2.0f;
 		OutputDebugStringA("Colision esc8");
 	}
+
+	if (valla1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
+
+	if (valla2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
+		returnLastPosition();
 		
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Transformaciones de modelos
