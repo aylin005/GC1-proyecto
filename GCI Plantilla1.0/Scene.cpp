@@ -7,6 +7,8 @@ bool messageShown3 = false;
 bool messageShown4 = false;
 bool messageShown5 = false;
 bool messageShown6 = false;
+bool recorridoCompleto = false;
+
 
 template<typename T>
 const T& clamp(const T& value, const T& low, const T& high) {
@@ -736,7 +738,15 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	{
 		MessageBox(NULL, L"¡Se encuentra en la cabaña!", L"La Cabaña 6/6", MB_OK | MB_ICONEXCLAMATION);
 		messageShown6 = true;
+
+		// Mostrar el mensaje de que terminó el recorrido
+		if (!recorridoCompleto)
+		{
+			MessageBox(NULL, L"¡Has terminado el recorrido!", L"Recorrido Completo", MB_OK | MB_ICONINFORMATION);
+			recorridoCompleto = true;
+		}
 	}
+
 
 	if (Star->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 	{
