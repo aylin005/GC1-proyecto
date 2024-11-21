@@ -749,6 +749,14 @@ bool Scene::ManageCommands() {
 			DeltaRotation->Y += angleY;
 		}
 
+		if (is3rdPerson)
+		{
+			if (input->GetKey(KeyCode.Space))
+				DeltaPosition->Y += speed * deltaTime;
+			if(input->GetKey(KeyCode.Shift))
+				DeltaPosition->Y -= speed * deltaTime;
+		}
+
 		if (input->GetKey(KeyCode.I)) {
 			DeltaRotation->X -= speedAxisX * deltaTime;
 		}
@@ -768,7 +776,8 @@ bool Scene::ManageCommands() {
 			OutputDebugStringA(str.c_str());
 		}
 
-		DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2;
+		if(!is3rdPerson)
+			DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2;
 
 		DeltaPosition->X += vr[0];
 		DeltaPosition->Z += vr[1];
@@ -780,8 +789,11 @@ bool Scene::ManageCommands() {
 		if (DeltaRotation->X < -89.0f) {
 			DeltaRotation->X = -89.0f;
 		}
-	
-
+		
+		//Que el vehículo no atraviese el terreno
+		if (DeltaPosition->Y < Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2) {
+			DeltaPosition->Y = Terreno->Superficie(DeltaPosition->X, DeltaPosition->Z) + 2; // Límite inferior.
+		}
 	return result;
 }
 
