@@ -1,5 +1,12 @@
 #include "Scene.h"
 
+bool messageShown = false;
+bool messageShown2 = false;
+bool messageShown3 = false;
+bool messageShown4 = false;
+bool messageShown5 = false;
+bool messageShown6 = false;
+
 Scene::Scene(OpenGLClass* OpenGLObject, HWND hwnd) {
 	handlerWindow = hwnd;
 	OpenGL = OpenGLObject;
@@ -187,6 +194,30 @@ bool Scene::Initialize() {
 	CasaArbol = new BoundingBoxRenderer(OpenGL,
 		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 5.0f,3.0f ,5.0f });
 	CasaArbol->SetShader(ShaderBox);
+
+	AreaCasa = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,20.0f ,20.0f });
+	AreaCasa->SetShader(ShaderBox);
+
+	AreaColumpio = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,20.0f ,20.0f });
+	AreaColumpio->SetShader(ShaderBox);
+
+	AreaPuente = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,20.0f ,20.0f });
+	AreaPuente->SetShader(ShaderBox);
+
+	AreaArco = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,20.0f ,10.0f });
+	AreaArco->SetShader(ShaderBox);
+
+	AreaHongos = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 30.0f,10.0f ,30.0f });
+	AreaHongos->SetShader(ShaderBox);
+
+	AreaCabin = new BoundingBoxRenderer(OpenGL,
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,10.0f ,20.0f });
+	AreaCabin->SetShader(ShaderBox);
 
 	ShaderBox = new ShaderBoundingBox(OpenGL, handlerWindow,
 		"shaders/vertexcolor.vs", "shaders/vertexcolor.ps");
@@ -416,6 +447,12 @@ bool Scene::Render() {
 	Sakura3->Draw(viewMatrix, projectionMatrix);
 	SakuraC->Draw(viewMatrix, projectionMatrix);
 	CasaArbol->Draw(viewMatrix, projectionMatrix);
+	AreaCasa->Draw(viewMatrix, projectionMatrix);
+	AreaColumpio->Draw(viewMatrix, projectionMatrix);
+	AreaPuente->Draw(viewMatrix, projectionMatrix);
+	AreaArco->Draw(viewMatrix, projectionMatrix);
+	AreaHongos->Draw(viewMatrix, projectionMatrix);
+	AreaCabin->Draw(viewMatrix, projectionMatrix);
 	
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
@@ -508,6 +545,24 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 	float* matrixCasa = CasaArbol->GetWorldMatrix();
 	OpenGL->MatrixTranslation(matrixCasa, -26.4f, Terreno->Superficie(-10.0f, 10.0f), 32.5f);
 
+	float* matrixAreaCasa = AreaCasa->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaCasa, -31.4f, Terreno->Superficie(-10.0f, 10.0f), 24.5f);
+
+	float* matrixAreaColumpio = AreaColumpio->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaColumpio, 17.4f, Terreno->Superficie(-10.0f, 10.0f), 55.5f);
+
+	float* matrixAreaPuente = AreaPuente->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaPuente, -6.4f, Terreno->Superficie(-10.0f, 10.0f), -60.5f);
+
+	float* matrixAreaArco = AreaArco->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaArco, -6.4f, Terreno->Superficie(-10.0f, 10.0f), 7.5f);
+
+	float* matrixAreaHongos = AreaHongos->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaHongos, -2.4f, Terreno->Superficie(-10.0f, 10.0f), -130.5f);
+
+	float* matrixAreaCabin = AreaCabin->GetWorldMatrix();
+	OpenGL->MatrixTranslation(matrixAreaCabin, -58.4f, Terreno->Superficie(-10.0f, 10.0f), -145.5f);
+
 	//Colision
 	for (int i = 0; i < Collisions.size(); i++)
 	{
@@ -550,6 +605,42 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 	if (CasaArbol->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
+
+	if (AreaCasa->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown)
+	{
+		MessageBox(NULL, L"¡Está en la Casa del Arbol!", L"Casa del Arbol", MB_OK | MB_ICONEXCLAMATION);
+		messageShown = true;
+	}
+
+	if (AreaColumpio->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown2)
+	{
+		MessageBox(NULL, L"¡Está en el columpio!", L"Bosque de Sakura", MB_OK | MB_ICONEXCLAMATION);
+		messageShown2 = true;
+	}
+
+	if (AreaPuente->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown3)
+	{
+		MessageBox(NULL, L"¡Está en el puente!", L"Puente del río", MB_OK | MB_ICONEXCLAMATION);
+		messageShown3 = true;
+	}
+
+	if (AreaArco->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown4)
+	{
+		MessageBox(NULL, L"¡Está en el arco!", L"Arco de piedra", MB_OK | MB_ICONEXCLAMATION);
+		messageShown4 = true;
+	}
+
+	if (AreaHongos->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown5)
+	{
+		MessageBox(NULL, L"¡Está en el area de los hongos!", L"Bioma de Hongos", MB_OK | MB_ICONEXCLAMATION);
+		messageShown5 = true;
+	}
+
+	if (AreaCabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown6)
+	{
+		MessageBox(NULL, L"¡Se encuentra en la cabaña!", L"La Cabaña", MB_OK | MB_ICONEXCLAMATION);
+		messageShown6 = true;
+	}
 
 	if (Star->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 	{

@@ -143,6 +143,12 @@ private:
 	BoundingBoxRenderer* SakuraC;
 	BoundingBoxRenderer* Sakura3;
 	BoundingBoxRenderer* CasaArbol;
+	BoundingBoxRenderer* AreaCasa;
+	BoundingBoxRenderer* AreaColumpio;
+	BoundingBoxRenderer* AreaPuente;
+	BoundingBoxRenderer* AreaArco;
+	BoundingBoxRenderer* AreaCabin;
+	BoundingBoxRenderer* AreaHongos;
 
 	//Variables de Movimiento (Traslacion)
 	float speedAxisX;
