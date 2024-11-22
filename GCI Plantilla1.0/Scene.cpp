@@ -239,7 +239,7 @@ bool Scene::Initialize() {
 	AreaCasa->SetShader(ShaderBox);
 
 	AreaColumpio = new BoundingBoxRenderer(OpenGL,
-		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 20.0f,20.0f ,20.0f });
+		BoundingBox::GLFLOAT3{ 0.0f,0.0f ,0.0f }, BoundingBox::GLFLOAT3{ 30.0f,30.0f ,30.0f });
 	AreaColumpio->SetShader(ShaderBox);
 
 	AreaPuente = new BoundingBoxRenderer(OpenGL,
@@ -415,64 +415,64 @@ bool Scene::Render() {
 	// se carga position, scale y rotation, scale y rotation tienen valores por default en caso de no haber cambios necesarios
 
 	//Area de hongos gigantes
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 1.22, 5.8, -143.96,  2,2,2);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, false, 1.22, 5.8, -143.96,  2,2,2);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 29.285208, 5.8, -114.304688,  1,1,1);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, false, 29.285208, 5.8, -114.304688,  1,1,1);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, -9.285208, 5.8, -114.304688, 1, 1, 1);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, false, -9.285208, 5.8, -114.304688, 1, 1, 1);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 59.285208, 5.8, -114.304688, 1, 1, 1);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, false, 59.285208, 5.8, -114.304688, 1, 1, 1);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, false, 9.64, Terreno->Superficie(9.64, -108), -108,  2, 2, 2,  0,3.14,0);
 	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true, 64.64, Terreno->Superficie(9.64, -108), -134, 2, 2, 2, 0, 3.14, 0);
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, false, 64.64, Terreno->Superficie(9.64, -108), -134, 2, 2, 2, 0, 3.14, 0);
 	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 14.77, Terreno->Superficie(14.77, -94.64), -120.64, 2.5,2.5,2.5,   0,3.14,0);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, false, 14.77, Terreno->Superficie(14.77, -94.64), -120.64, 2.5,2.5,2.5,   0,3.14,0);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 39.77, Terreno->Superficie(14.77, -94.64), -128.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, false, 39.77, Terreno->Superficie(14.77, -94.64), -128.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 56.77, 4.8, -148.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, false, 56.77, 4.8, -148.64, 2.5, 2.5, 2.5, 0, 3.14, 0);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Hongo->RenderWithCB(viewMatrix, projectionMatrix, true, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
+	Hongo->RenderWithCB(viewMatrix, projectionMatrix, false, 34.14, 5.8, -159.03, 1.5, 1.5, 1.5);
 	if (Hongo->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
 	
-	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, true,-40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
+	Honguito1->RenderWithCB(viewMatrix, projectionMatrix, false,-40.19, 3.8, -125.77,  1,1,1,  0,3.14,0);
 	if (Honguito1->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, false, -41.19, 3.8, -126.77,  1,1,1,  0,3.14,0);
 	if (Honguito2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 	
-	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, true, -4.30, 3.8, 56.7, 2,2,2);
+	Honguito2->RenderWithCB(viewMatrix, projectionMatrix, false, -4.30, 3.8, 56.7, 2,2,2);
 	if (Honguito2->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, -3.92, 3.8, -33.5f);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, false, -3.92, 3.8, -33.5f);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
-	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, true, 10.46f, 3.8, -8.41f);
+	Honguito3->RenderWithCB(viewMatrix, projectionMatrix, false, 10.46f, 3.8, -8.41f);
 	if (Honguito3->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z))
 		returnLastPosition();
 
@@ -483,10 +483,10 @@ bool Scene::Render() {
 		starRotation = 0.0;
 	//if(starFloating)
 	if (!is3rdPerson) {
-		Star->RenderWithCB(viewMatrix, projectionMatrix, true, -20, 4, -19.43, 2, 2, 2, 0, starRotation, 0);
+		Star->RenderWithCB(viewMatrix, projectionMatrix, false, -20, 4, -19.43, 2, 2, 2, 0, starRotation, 0);
 	}
 	else {
-		Star->RenderWithCB(viewMatrix, projectionMatrix, true, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
+		Star->RenderWithCB(viewMatrix, projectionMatrix, false, DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z, 2, 2, 2, 0, starRotation, 0);
 	}
 
 	if (goingUp)
@@ -578,23 +578,23 @@ bool Scene::Render() {
 	Pine1->Render(viewMatrix, projectionMatrix, -31.70f, Terreno->Superficie(-33.57f, -93.94f), 140.91f, DeltaPosition->X, DeltaPosition->Z);
 
 
-	Pine2->Render(viewMatrix, projectionMatrix, 207.5, Terreno->Superficie(207.5, -61.19), -61.19, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 207.5, Terreno->Superficie(207.5, -61.19), -61.19, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, 223.36, Terreno->Superficie(223.36, -21.5), -21.5, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, 190.99, Terreno->Superficie(190.99, 6.82), 6.82, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, 200.25, Terreno->Superficie(200.25, 36.94), 36.94, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 190.99, Terreno->Superficie(190.99, 6.82), 6.82, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 200.25, Terreno->Superficie(200.25, 36.94), 36.94, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, 199.73, Terreno->Superficie(199.73, 81.46), 81.46, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, 187, Terreno->Superficie(187, 121.9), 121.9, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, 160.68, Terreno->Superficie(160.68, 156.15), 156.15, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 187, Terreno->Superficie(187, 121.9), 121.9, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, 160.68, Terreno->Superficie(160.68, 156.15), 156.15, DeltaPosition->X, DeltaPosition->Z);
 	
 
 	Pine1->Render(viewMatrix, projectionMatrix, 2.78, Terreno->Superficie(2.78, 197.5), 197.5, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, -83.66, Terreno->Superficie(-83.66, 195.98), 195.98, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -83.66, Terreno->Superficie(-83.66, 195.98), 195.98, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -135.65, Terreno->Superficie(-135.65, 175.7), 175.7, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -171.7, Terreno->Superficie(-171.7, 179.02), 179.02, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, -192.8, Terreno->Superficie(-192.8, 149.46), 149.46, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -192.8, Terreno->Superficie(-192.8, 149.46), 149.46, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -192.89, Terreno->Superficie(-192.89, 149.46), 149.46, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -193.6, Terreno->Superficie(-193.6, 95.49), 95.49, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, -171.49, Terreno->Superficie(-171.49, 55.88), 55.88, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -171.49, Terreno->Superficie(-171.49, 55.88), 55.88, DeltaPosition->X, DeltaPosition->Z);
 
 	orangetree->Render(viewMatrix, projectionMatrix, -57, 3.5, 94.88, DeltaPosition->X, DeltaPosition->Z);
 	orangetree->Render(viewMatrix, projectionMatrix, -57, 3.5, 74.88, DeltaPosition->X, DeltaPosition->Z);
@@ -614,11 +614,11 @@ bool Scene::Render() {
 	//Arboles de la cabaña
 	Pine1->Render(viewMatrix, projectionMatrix, -67.54, Terreno->Superficie(-67.54, -115), -115, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -32.89, Terreno->Superficie(-32.89, -116.5), -116.5, DeltaPosition->X, DeltaPosition->Z);
-	Pine2->Render(viewMatrix, projectionMatrix, -36.47, Terreno->Superficie(-36.47, -135.2), -135.2, DeltaPosition->X, DeltaPosition->Z);
+	Pine1->Render(viewMatrix, projectionMatrix, -36.47, Terreno->Superficie(-36.47, -135.2), -135.2, DeltaPosition->X, DeltaPosition->Z);
 	Pine1->Render(viewMatrix, projectionMatrix, -61.13, Terreno->Superficie(-61.13, -124.9), -124.9, DeltaPosition->X, DeltaPosition->Z);
 
 	//Cajas
-	box->Draw(viewMatrix, projectionMatrix);
+	/*box->Draw(viewMatrix, projectionMatrix);
 	Cabana1->Draw(viewMatrix, projectionMatrix);
 	Cabana2->Draw(viewMatrix, projectionMatrix);
 	Cabana3->Draw(viewMatrix, projectionMatrix);
@@ -652,7 +652,7 @@ bool Scene::Render() {
 	Lim2->Draw(viewMatrix, projectionMatrix);
 	Lim3->Draw(viewMatrix, projectionMatrix);
 	Lim4->Draw(viewMatrix, projectionMatrix);
-	
+	*/
 
 	// Damos la instruccion de que termino la escena para que nos muestre frame a frame.
 	OpenGL->EndScene();
@@ -831,43 +831,43 @@ bool Scene::Update(InputClass* input, float deltaTime) {
 
 	if (AreaCasa->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown)
 	{
-		MessageBox(NULL, L"¡Está en la Casa del Arbol!", L"Casa del Arbol 1/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"La Casa del Arbol de un pequeño duende", L"Casa del Arbol 1/6", MB_OK | MB_ICONINFORMATION);
 		messageShown = true;
 	}
 
 	if (AreaColumpio->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown2)
 	{
-		MessageBox(NULL, L"¡Está en el columpio!", L"Bosque de Sakura 2/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"El columpio del jardín de Sakura", L"Bosque de Sakura 2/6", MB_OK | MB_ICONINFORMATION);
 		messageShown2 = true;
 	}
 
 	if (AreaPuente->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown3)
 	{
-		MessageBox(NULL, L"¡Está en el puente!", L"Puente del río 4/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"El puente del rio del bosque encantado", L"Puente del río 4/6", MB_OK | MB_ICONINFORMATION);
 		messageShown3 = true;
 	}
 
 	if (AreaArco->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown4)
 	{
-		MessageBox(NULL, L"¡Está en el arco!", L"Arco de piedra 3/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"El arco transitorio antes del rio", L"Arco de piedra 3/6", MB_OK | MB_ICONINFORMATION);
 		messageShown4 = true;
 	}
 
 	if (AreaHongos->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown5)
 	{
-		MessageBox(NULL, L"¡Está en el area de los hongos!", L"Bioma de Hongos 5/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"El jardín de hongos gigantes del cuidador del bosque", L"Bioma de Hongos 5/6", MB_OK | MB_ICONINFORMATION);
 		messageShown5 = true;
 	}
 
 	if (AreaCabin->GetBoxCollision(DeltaPosition->X, DeltaPosition->Y, DeltaPosition->Z) && !messageShown6)
 	{
-		MessageBox(NULL, L"¡Se encuentra en la cabaña!", L"La Cabaña 6/6", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(NULL, L"La cabaña de trabajo del cuidador del bosque", L"La Cabaña 6/6", MB_OK | MB_ICONINFORMATION);
 		messageShown6 = true;
 
 		// Mostrar el mensaje de que terminó el recorrido
 		if (!recorridoCompleto)
 		{
-			MessageBox(NULL, L"¡Has terminado el recorrido!", L"Recorrido Completo", MB_OK | MB_ICONINFORMATION);
+			MessageBox(NULL, L"¡Has terminado el recorrido! Gracias por tu visita al bosque mágico", L"Recorrido Completo", MB_OK | MB_ICONINFORMATION);
 			recorridoCompleto = true;
 		}
 	}

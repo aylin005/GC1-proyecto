@@ -34,8 +34,8 @@ const float SCREEN_NEAR = 0.1f;
 const float SPEED_AXIS_Y = 0.05f;
 const float SPEED_AXIS_X = 0.05f;
 const float SPEED_CAMERA = 0.01f;
-//const float InitialPosition[3] = { -55.3f, 11.0f, 132.0f }; //Inicio del recorrido
-const float InitialPosition[3] = { 40.467304, 5.800000, -86.949074 }; //Enfrente del rio
+const float InitialPosition[3] = { -55.3f, 11.0f, 132.0f }; //Inicio del recorrido
+//const float InitialPosition[3] = { 40.467304, 5.800000, -86.949074 }; //Enfrente del rio
 const float InitialRotation[3] = { 0.0f, 90, 0.0f };
 
 
